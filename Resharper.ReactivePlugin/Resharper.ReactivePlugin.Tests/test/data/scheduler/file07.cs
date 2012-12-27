@@ -1,0 +1,14 @@
+namespace Resharper._7._1.ReactivePlugin.Tests.test.data.scheduler
+{
+    using System.Reactive;
+    using System.Reactive.Concurrency;
+    using System.Reactive.Subjects;
+
+    public class File07
+    {
+        public static void Main()
+        {
+            new ReplaySubject<Unit>(42, Scheduler.CurrentThread);
+        }
+    }
+}

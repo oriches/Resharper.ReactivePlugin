@@ -1,0 +1,2 @@
+xcopy "$(ProjectDir)$(OutDir)*.*" "..\..\..\..\output\" /y
+xcopy "$(ProjectDir)$(OutDir)*.*" "C:\Program Files (x86)\JetBrains\ReSharper\v7.1\Bin\Plugins\Reactive 0.1" /y

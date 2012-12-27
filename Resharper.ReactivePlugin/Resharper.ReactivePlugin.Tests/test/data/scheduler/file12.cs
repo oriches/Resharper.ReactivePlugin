@@ -1,0 +1,14 @@
+namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
+{
+    using System.Reactive.Concurrency;
+    using Classes;
+
+    public class File12
+    {
+        private void Main()
+        {
+            var custom = new Custom(Scheduler.Immediate);
+            custom.SimpleMethod();
+        }
+    }
+}

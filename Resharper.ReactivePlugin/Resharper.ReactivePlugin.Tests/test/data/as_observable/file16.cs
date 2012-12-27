@@ -1,0 +1,16 @@
+namespace Resharper.ReactivePlugin.Tests.test.data.as_observable
+{
+    using System;
+    using System.Reactive;
+    using Classes;
+
+    public class File16
+    {
+        public File16()
+        {
+            Property = new CustomObservable<Unit>();
+        }
+
+        private IObservable<Unit> Property { get; set; }
+    }
+}
