@@ -27,4 +27,12 @@ This plugin for Resharper has been developed from experiences when using the [Re
 
 This plugin is not about adding functionality to the Rx libraries, it's about trying to help developers write 'better' code using the Rx libraries. It's designed to highlight issues in code which could cause potential issues.
 
-Note: Trying to define what 'better' would be a subject and rather futile task.
+Note: Trying to define what 'better' means would be a subject and rather futile task.
+
+
+**So what's currently supported?**
+
+Currently there are only 2 highlights defined  - this is a beta release after all :)
+
+See the [Getting Started] (https://github.com/oriches/Resharper.ReactivePlugin/wiki/Getting-Started) page on the wiki for an index of supported highlights & actions.
+
