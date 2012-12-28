@@ -13,6 +13,8 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -109,11 +111,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Resharper.ReactivePlugin.Tests.Classes\Resharper.ReactivePlugin.Tests.Classes.csproj">
       <Project>{6fedaa7a-3575-47cb-bed5-b1a2c49cc1f6}</Project>
-      <Name>Resharper.7.1.ReactivePlugin.Tests.Classes</Name>
+      <Name>Resharper.ReactivePlugin.Tests.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\Resharper.ReactivePlugin\Resharper.ReactivePlugin.csproj">
       <Project>{dc7fc4e4-cff9-427b-9f8c-b0e9f8503e07}</Project>
-      <Name>Resharper.7.1.ReactivePlugin</Name>
+      <Name>Resharper.ReactivePlugin</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -154,4 +156,5 @@
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(ReSharperSdkTargets)\Plugin.Tests.Targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>

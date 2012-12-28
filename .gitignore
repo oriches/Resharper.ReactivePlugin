@@ -7,6 +7,8 @@
 .metadata
 bin/
 tmp/
+packages/
+output/
 *.tmp
 *.bak
 *.swp
@@ -15,6 +17,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+*.ncrunchsolution
 
 # External tool builders
 .externalToolBuilders/
