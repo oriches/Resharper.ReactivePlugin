@@ -23,7 +23,7 @@ Currently this plugin only supports analysing C# code.
 
 # Introduction
 
-You can skip the intro and go straight to the [Getting Started] (https://github.com/oriches/Resharper.ReactivePlugin/wiki/Getting-Started) guide.
+
 
 
 
