@@ -34,7 +34,7 @@ Note: Trying to define what 'better' means would be a subject and rather futile 
 
 Currently there are only 2 highlights defined  - this is a beta release after all :)
 
-See the [Getting Started] (https://github.com/oriches/Resharper.ReactivePlugin/wiki/Getting-Started) page on the wiki for an index of supported highlights & actions.
+See the [Wiki] (https://github.com/oriches/Resharper.ReactivePlugin/wiki) page on the wiki for an index of supported highlights & actions.
 
 
 **Can I contribute?**
