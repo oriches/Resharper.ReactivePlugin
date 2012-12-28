@@ -23,7 +23,8 @@ Currently this plugin only supports analysing C# code.
 
 # Introduction
 
-This plugin for Resharper has been developed from  experiences when using the [Reactive Extensions (Rx) for .Net] (http://msdn.microsoft.com/en-us/data/gg577609.aspx)
+This plugin for Resharper has been developed from experiences when using the [Reactive Extensions (Rx) for .Net] (http://msdn.microsoft.com/en-us/data/gg577609.aspx) to develop applications using all varieties of the .Net framework.
 
+This plugin is not about adding functionality to the Rx libraries, it's about trying to help developers write 'better' code using the Rx libraries. It's designed to highlight issues in code which could cause potential issues.
 
-
+Note: Trying to define what 'better' would be a subject and rather futile task.
