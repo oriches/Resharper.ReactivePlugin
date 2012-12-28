@@ -23,7 +23,7 @@ Currently this plugin only supports analysing C# code.
 
 # Introduction
 
-
+This plugin for Resharper has been developed from  experiences when using the [Reactive Extensions (Rx) for .Net] (http://msdn.microsoft.com/en-us/data/gg577609.aspx)
 
 
 
