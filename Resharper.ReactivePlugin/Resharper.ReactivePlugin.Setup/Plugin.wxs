@@ -4,10 +4,10 @@
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+		<MediaTemplate EmbedCab="yes" />
 
 		<Feature Id="ProductFeature" Title="Reactive Extensions Plugin for Resharper" Level="1">
-			<ComponentGroupRef Id="ProductComponents"  />
+			<ComponentGroupRef Id="ProductComponents"   />
 		</Feature>
 	</Product>
 
@@ -32,7 +32,7 @@
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="REACTIVE_PLUGIN_FOLDER">
       <Component Id="Resharper.ReactivePlugin" Guid="482FF8FA-7780-44C6-86BA-85D870CE89B8">
-        <File Id="Resharper.ReactivePlugin.dll" Source="..\..\output\Resharper.ReactivePlugin.dll" KeyPath="yes" Checksum="yes"/>
+        <File Id="Resharper.ReactivePlugin.dll" Source="..\..\output\Resharper.ReactivePlugin.dll" KeyPath="yes" Checksum="yes" />
       </Component>
 		</ComponentGroup>
 	</Fragment>
