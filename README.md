@@ -12,3 +12,6 @@ Supported versions:
 	Portable Class Libraries (any of the above configurations).
 
 Currently this plugin only supports analysing C# code.
+
+The plugin is compiled into an assembly and packaged into an MSI. The MSI is built using the WiX (version 3.7 or greater) plugin for Visual Studio, this can be download [here] (http://wix.codeplex.com/releases/view/99514).
+
