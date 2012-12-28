@@ -36,3 +36,7 @@ Currently there are only 2 highlights defined  - this is a beta release after al
 
 See the [Getting Started] (https://github.com/oriches/Resharper.ReactivePlugin/wiki/Getting-Started) page on the wiki for an index of supported highlights & actions.
 
+
+**Can I contribute?**
+
+Definitely - you can either fork and generate pull requests or get in contact with a description and we'll see what we can do.
