@@ -13,6 +13,12 @@ Supported versions:
 
 Reactive Extensions Plugin for Resharper is licensed under the GNU General Public License version 2 (GPLv2). Please see LICENSE for more detail.
 
+# Download
+
+You can download the plugin as a packaged MSI from [here] (http://reactiveresharper.codeplex.com/releases/view/99603).
+
+
+
 You can skip the intro and go straight to the [Getting Started] (https://github.com/oriches/Resharper.ReactivePlugin/wiki/Getting-Started) guide.
 
 # Introduction
