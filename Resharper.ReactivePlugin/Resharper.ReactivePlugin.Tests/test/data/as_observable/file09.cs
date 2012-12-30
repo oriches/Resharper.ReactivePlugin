@@ -6,7 +6,7 @@ namespace Resharper.ReactivePlugin.Tests.test.data.as_observable
 
     public class File09
     {
-        private readonly IObservable<Unit> _test = new CustomObservable<Unit>();
+        private readonly CustomObservable<Unit> _test = new CustomObservable<Unit>();
 
         public IObservable<Unit> Method
         {

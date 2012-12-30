@@ -28,6 +28,11 @@
                 return;
             }
 
+            if (ReturnStatementHelper.IsReturnTypeOnlyIObservable(returnStatement))
+            {
+                return;
+            }
+
             IExpression expression = returnStatement.Value as IReferenceExpression ?? returnStatement.Value;
 
             var range = expression.GetDocumentRange();

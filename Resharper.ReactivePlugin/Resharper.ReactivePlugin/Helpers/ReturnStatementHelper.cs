@@ -11,6 +11,7 @@
     {
         private const string AsObservableName = "AsObservable";
         private const string ObservableInterfaceName = "System.IObservable`1";
+        private const string ObjectName = "System.Object";
 
         public static bool IsReturnTypeAsObservable(IReturnStatement returnStatement)
         {
@@ -44,6 +45,41 @@
             }
         }
 
+        public static bool IsReturnTypeOnlyIObservable(IReturnStatement returnStatement)
+        {
+            try
+            {
+                var type = returnStatement.Value.GetExpressionType().ToIType();
+                if (type == null)
+                {
+                    return false;
+                }
+
+                var scalarType = type.GetScalarType();
+                if (scalarType == null)
+                {
+                    return false;
+                }
+
+                if (scalarType.GetClrName().FullName == ObservableInterfaceName)
+                {
+                    if (scalarType.GetSuperTypes().Count() == 1 &&
+                        scalarType.GetSuperTypes().First().GetClrName().FullName == ObjectName)
+                    {
+
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            catch (Exception exn)
+            {
+                Debug.WriteLine(exn);
+                return false;
+            }
+        }
+
         public static bool IsReturnTypeIObservable(IReturnStatement returnStatement)
         {
             try
@@ -61,7 +97,7 @@
                 }
 
                 return scalarType.GetClrName().FullName == ObservableInterfaceName ||
-                       scalarType.GetSuperTypes().Any(TypeHelper.HasIObservableSuperType);
+                       TypeHelper.HasIObservableSuperType(scalarType);
             }
             catch (Exception exn)
             {

@@ -199,5 +199,15 @@ namespace Resharper.ReactivePlugin.Tests
                 DoTestFiles(testName);
             }
         }
+
+        [Test]
+        [TestCase("file20.cs")]
+        public void should_not_highlight_as_observable_for_return_type_in_public_method_which_only_exposes_iobservable(string testName)
+        {
+            using (ResolverReactiveAssemblies())
+            {
+                DoTestFiles(testName);
+            }
+        }
     }
 }

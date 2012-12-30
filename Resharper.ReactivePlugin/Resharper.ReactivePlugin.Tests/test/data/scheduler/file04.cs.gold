@@ -14,4 +14,4 @@ namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
 
 ---------------------------------------------------------
 (0): ReSharper Suggestion: Consider explicitly defining the scheduler, this can help reduce threading issues and improve testing.
-(1): ReSharper Warning: Consider explicitly defining the scheduler, this can help reduce threading issues and improve testing.
+(1): ReSharper Suggestion: Consider explicitly defining the scheduler, this can help reduce threading issues and improve testing.
