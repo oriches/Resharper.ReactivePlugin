@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="49C14E85-C5D5-447F-B892-6578899C6A87" Name="Reactive Extensions Plugin for Resharper" Language="1033" Version="0.1.0.0" Manufacturer="Ollie Riches" UpgradeCode="de573451-9544-432f-8534-afcb9e43a8b4">
+	<Product Id="49C14E85-C5D5-447F-B892-6578899C6A87" Name="Reactive Extensions Plugin for Resharper" Language="1033" Version="0.2.0.0" Manufacturer="Ollie Riches" UpgradeCode="de573451-9544-432f-8534-afcb9e43a8b4">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -19,7 +19,7 @@
             <Directory Id="VERSION_FOLDER" Name="v7.1">
               <Directory Id="BIN_FOLDER" Name="Bin">
                 <Directory Id="PLUGINS_FOLDER" Name="Plugins">
-                  <Directory Id="REACTIVE_PLUGIN_FOLDER" Name="Reactive 0.1" />
+                  <Directory Id="REACTIVE_PLUGIN_FOLDER" Name="Reactive 0.2" />
                 </Directory>
               </Directory>
             </Directory>
