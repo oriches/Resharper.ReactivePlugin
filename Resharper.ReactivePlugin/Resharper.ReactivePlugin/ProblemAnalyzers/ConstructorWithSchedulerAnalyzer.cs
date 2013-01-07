@@ -1,5 +1,6 @@
 ﻿namespace Resharper.ReactivePlugin.ProblemAnalyzers
 {
+    using Highlighters;
     using JetBrains.DocumentModel;
     using JetBrains.ReSharper.Daemon;
     using JetBrains.ReSharper.Daemon.Stages;
@@ -9,7 +10,6 @@
     using JetBrains.ReSharper.Psi.Tree;
     using JetBrains.Util;
     using Helpers;
-    using Highlights;
 
     [ElementProblemAnalyzer(new[] { typeof(IObjectCreationExpression) }, HighlightingTypes = new[] { typeof(SchedulerHighlighting) })]
     public sealed class ConstructorWithSchedulerAnalyzer : ElementProblemAnalyzer<IObjectCreationExpression>
@@ -37,11 +37,11 @@
             // Overloaded version taking IScheduler as a parameter does exist
             // You should be using this overload so we create a highlight...
 
-            var name = expression.TypeName.QualifiedName;
+            var constructorName = expression.TypeName.QualifiedName;
             var text = expression.GetText();
 
             var range = expression.GetDocumentRange();
-            var index = text.LastIndexOf(name, System.StringComparison.Ordinal);
+            var index = text.IndexOf(constructorName, System.StringComparison.Ordinal);
             if (index != -1)
             {
                 var textRange = new TextRange(range.TextRange.StartOffset + index, range.TextRange.EndOffset);

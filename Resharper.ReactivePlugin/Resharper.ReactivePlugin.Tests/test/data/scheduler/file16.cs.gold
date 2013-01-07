@@ -1,0 +1,23 @@
+namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
+{
+    using System;
+    using System.Reactive.Concurrency;
+    using Classes;
+
+    public class File16
+    {
+        public static void Main()
+        {
+            var custom = new Custom(Scheduler.Immediate);
+            custom.|ComplexMethod(GetComplexMethodParameter())|(0).Subscribe();
+        }
+
+        private static int GetComplexMethodParameter()
+        {
+            return 42;
+        }
+    }
+}
+
+---------------------------------------------------------
+(0): ReSharper Suggestion: Consider explicitly defining the scheduler, this can help reduce threading issues and improve testing.

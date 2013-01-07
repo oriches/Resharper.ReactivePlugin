@@ -3,7 +3,7 @@ using JetBrains.Threading;
 using System.Reflection;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Resharper.ReactivePlugin.Highlights;
+using Resharper.ReactivePlugin.Highlighters;
 
 /// <summary>
 /// Test environment. Must be in the global namespace.

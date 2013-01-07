@@ -28,5 +28,10 @@
         {
             return Observable.Return(Unit.Default);
         }
+
+        public IObservable<Unit> ComplexMethod(int number, IScheduler scheduler = null)
+        {
+            return Observable.Return(Unit.Default);
+        }
     }
 } ;

@@ -1,7 +1,7 @@
 ﻿namespace Resharper.ReactivePlugin.ProblemAnalyzers
 {
     using Helpers;
-    using Highlights;
+    using Highlighters;
     using JetBrains.DocumentModel;
     using JetBrains.ReSharper.Daemon;
     using JetBrains.ReSharper.Daemon.Stages;
@@ -43,14 +43,14 @@
             // Overloaded version taking IScheduler as a parameter does exist
             // You could be using this overload so we create a highlight...
 
-            var name = method.ShortName;
-            var text = expression.GetText();
+            var methodName = method.ShortName;
+            var invokedText = expression.InvokedExpression.GetText();
+            var lastIndex = invokedText.LastIndexOf(methodName, System.StringComparison.Ordinal);
 
             var range = expression.GetDocumentRange();
-            var index = text.LastIndexOf(name, System.StringComparison.Ordinal);
-            if (index != 0)
+            if (lastIndex != 0)
             {
-                var textRange = new TextRange(range.TextRange.StartOffset + index, range.TextRange.EndOffset);
+                var textRange = new TextRange(range.TextRange.StartOffset + lastIndex, range.TextRange.EndOffset);
                 range = new DocumentRange(expression.GetDocumentRange().Document, textRange);
             }
             

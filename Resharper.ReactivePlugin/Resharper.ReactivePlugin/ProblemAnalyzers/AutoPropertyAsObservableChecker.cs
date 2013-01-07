@@ -2,7 +2,7 @@
 {
     using System;
     using Helpers;
-    using Highlights;
+    using Highlighters;
     using JetBrains.DocumentModel;
     using JetBrains.ReSharper.Daemon;
     using JetBrains.ReSharper.Daemon.Stages;

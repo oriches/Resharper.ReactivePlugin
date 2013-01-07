@@ -1,10 +1,10 @@
 namespace Resharper.ReactivePlugin.Tests
 {
+    using Highlighters;
     using JetBrains.Application.Settings;
     using JetBrains.ReSharper.Daemon;
     using JetBrains.ReSharper.TestFramework;
     using NUnit.Framework;
-    using Highlights;
 
     [TestNetFramework45]
     [TestFixture]
@@ -173,6 +173,26 @@ namespace Resharper.ReactivePlugin.Tests
         [Test]
         [TestCase("file15.cs")]
         public void should_not_highlight_extension_method_which_can_not_take_scheduler(string testName)
+        {
+            using (ResolverReactiveAssemblies())
+            {
+                DoTestFiles(testName);
+            }
+        }
+
+        [Test]
+        [TestCase("file16.cs")]
+        public void should_highlight_all_observable_method_name(string testName)
+        {
+            using (ResolverReactiveAssemblies())
+            {
+                DoTestFiles(testName);
+            }
+        }
+
+        [Test]
+        [TestCase("file17.cs")]
+        public void should_highlight_all_observable_method_name_but_not_local_variable_name(string testName)
         {
             using (ResolverReactiveAssemblies())
             {

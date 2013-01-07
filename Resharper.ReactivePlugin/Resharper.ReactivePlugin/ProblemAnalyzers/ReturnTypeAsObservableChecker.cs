@@ -1,12 +1,12 @@
 ﻿namespace Resharper.ReactivePlugin.ProblemAnalyzers
 {
+    using Highlighters;
     using JetBrains.ReSharper.Daemon;
     using JetBrains.ReSharper.Daemon.Stages;
     using JetBrains.ReSharper.Daemon.Stages.Dispatcher;
     using JetBrains.ReSharper.Psi.CSharp.Tree;
     using JetBrains.ReSharper.Psi.Tree;
     using Helpers;
-    using Highlights;
 
     [ElementProblemAnalyzer(new[] { typeof(IReturnStatement) }, HighlightingTypes = new[] { typeof(AsObservableHighlighting) })]
     public sealed class ReturnTypeAsObservableChecker : ElementProblemAnalyzer<IReturnStatement>

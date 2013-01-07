@@ -1,6 +1,6 @@
 namespace Resharper.ReactivePlugin.Tests
 {
-    using Highlights;
+    using Highlighters;
     using JetBrains.Application.Settings;
     using JetBrains.ReSharper.Daemon;
     using JetBrains.ReSharper.TestFramework;
