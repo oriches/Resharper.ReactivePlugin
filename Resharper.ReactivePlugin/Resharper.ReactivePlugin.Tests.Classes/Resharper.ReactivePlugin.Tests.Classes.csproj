@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Custom.cs" />
     <Compile Include="CustomAbstractObservable.cs" />
+    <Compile Include="CustomExtensions.cs" />
     <Compile Include="CustomObservable.cs" />
     <Compile Include="CustomObservableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
