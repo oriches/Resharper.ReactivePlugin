@@ -229,5 +229,15 @@ namespace Resharper.ReactivePlugin.Tests
                 DoTestFiles(testName);
             }
         }
+
+        [Test]
+        [TestCase("file21.cs")]
+        public void should_highlight_explicit_extension_method_which_can_take_scheduler(string testName)
+        {
+            using (ResolverReactiveAssemblies())
+            {
+                DoTestFiles(testName);
+            }
+        }
     }
 }

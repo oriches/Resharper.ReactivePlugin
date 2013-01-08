@@ -62,7 +62,8 @@
                     return false;
                 }
 
-                return typeElement.GetMembers().Where(m => m.ShortName == method.ShortName)
+                return typeElement.GetMembers()
+                                  .Where(m => m.ShortName == method.ShortName)
                                   .OfType<IMethod>()
                                   .Any(m => DoesOverloadSupportCurrentArgumentsAndScheduler(method, argumentList, m.Parameters));
             }
@@ -73,7 +74,9 @@
             }
         }
 
-        private static bool DoesOverloadSupportCurrentArgumentsAndScheduler(IMethod method, IArgumentList argumentList, IList<IParameter> parameters)
+        private static bool DoesOverloadSupportCurrentArgumentsAndScheduler(IMethod method,
+            IArgumentList argumentList,
+            IList<IParameter> parameters)
         {
             // If no parameters it can't be an overload...
             if (parameters.Count == 0)
@@ -82,11 +85,24 @@
             }
 
             // Is the number of parameters n more than the current number of arguments (possible overload)...
-            // If it's an extension method then n == 2 else n == 1
-            var n = method.IsExtensionMethod ? 2 : 1;
-            if ((argumentList.Arguments.Count + n) != parameters.Count)
+            // If it's an extension method then n == 2 or 1 else n == 1
+            if (method.IsExtensionMethod)
             {
-                return false;
+                // Extension method can be invoked in either of 2 ways so we check parameter count twice...
+                var implicitCount = argumentList.Arguments.Count + 1;
+                var explicitCount = argumentList.Arguments.Count + 2;
+
+                if (explicitCount != parameters.Count && implicitCount != parameters.Count)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if ((argumentList.Arguments.Count + 1) != parameters.Count)
+                {
+                    return false;
+                }
             }
 
             // Is the last parameter an IScheduler (possible overload)...
@@ -111,12 +127,15 @@
                     return false;
                 }
 
-                if (!parameterType.IsOpenType)
+                // Generic parameter...
+                if (parameterType.IsOpenType)
                 {
-                    if (argumentType.GetClrName().FullName != parameterType.GetClrName().FullName)
-                    {
-                        return false;
-                    }
+                    continue;
+                }
+
+                if (argumentType.GetClrName().FullName != parameterType.GetClrName().FullName)
+                {
+                    return false;
                 }
             }
 

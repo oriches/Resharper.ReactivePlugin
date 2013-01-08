@@ -87,6 +87,7 @@
     <Compile Include="test\data\as_observable\file11.cs" />
     <Compile Include="test\data\as_observable\file10.cs" />
     <Compile Include="test\data\as_observable\file09.cs" />
+    <Compile Include="test\data\scheduler\file21.cs" />
     <Compile Include="test\data\scheduler\file20.cs" />
     <Compile Include="test\data\scheduler\file19.cs" />
     <Compile Include="test\data\scheduler\file18.cs" />
@@ -135,6 +136,7 @@
     <None Include="test\data\as_observable\file11.cs.gold" />
     <None Include="test\data\as_observable\file10.cs.gold" />
     <None Include="test\data\as_observable\file09.cs.gold" />
+    <None Include="test\data\scheduler\file21.cs.gold" />
     <None Include="test\data\scheduler\file20.cs.gold" />
     <None Include="test\data\scheduler\file19.cs.gold" />
     <None Include="test\data\scheduler\file18.cs.gold" />
