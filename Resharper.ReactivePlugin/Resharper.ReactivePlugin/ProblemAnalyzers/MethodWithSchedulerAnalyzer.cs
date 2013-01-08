@@ -35,7 +35,7 @@
                 return;
             }
 
-            if (!SchedulerHelper.HasOverloadWithSchedulerParameter(method))
+            if (!SchedulerHelper.HasOverloadWithSchedulerParameter(method, expression.ArgumentList))
             {
                 return;
             }

@@ -24,6 +24,26 @@
             return Observable.Return(Unit.Default, scheduler ?? _scheduler);
         }
 
+        public IObservable<Unit> OverloadedMethodHasOptionalScheduler()
+        {
+            return Observable.Return(Unit.Default, _scheduler);
+        }
+
+        public IObservable<Unit> OverloadedMethodHasOptionalScheduler(int number, string text, double number2)
+        {
+            return Observable.Return(Unit.Default, _scheduler);
+        }
+
+        public IObservable<Unit> OverloadedMethodHasOptionalScheduler(int number, string text, IScheduler scheduler = null)
+        {
+            return Observable.Return(Unit.Default, scheduler ?? _scheduler);
+        }
+
+        public IObservable<Unit> OverloadedMethodHasOptionalScheduler(int number, IScheduler scheduler = null)
+        {
+            return Observable.Return(Unit.Default, scheduler ?? _scheduler);
+        }
+
         public IObservable<Unit> SimpleMethod()
         {
             return Observable.Return(Unit.Default);
