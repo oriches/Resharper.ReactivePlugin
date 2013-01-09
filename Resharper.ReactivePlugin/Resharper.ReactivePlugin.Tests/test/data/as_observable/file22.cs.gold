@@ -1,0 +1,19 @@
+﻿namespace Resharper.ReactivePlugin.Tests.test.data.as_observable
+{
+    using System;
+    using System.Reactive;
+    using System.Reactive.Subjects;
+
+    public class File22
+    {
+        private readonly Subject<Unit> _test = new Subject<Unit>();
+
+        public IObservable<Unit> Property
+        {
+            get { return |_test|(0); }
+        }
+    }
+}
+
+---------------------------------------------------------
+(0): ReSharper Suggestion: Consider calling method AsObservable to prevent casting return type back to the declaring type, AsObservable hides the identity of an observable sequence.

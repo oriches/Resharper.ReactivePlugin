@@ -1,0 +1,18 @@
+﻿namespace Resharper.ReactivePlugin.Tests.test.data.as_observable
+{
+    using System;
+    using System.Reactive;
+    using System.Reactive.Subjects;
+
+    public class File24
+    {
+        private readonly Subject<Unit> _test = new Subject<Unit>();
+
+        public Subject<Unit> Method()
+        {
+            return _test;
+        }
+    }
+}
+
+---------------------------------------------------------

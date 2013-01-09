@@ -13,7 +13,12 @@
     {
         protected override void Run(IReturnStatement returnStatement, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
         {
-            if (!ReturnStatementHelper.HasPublicModifier(returnStatement))
+            if (!ReturnStatementHelper.IsContainingDeclarationReturnTypeIObservable(returnStatement))
+            {
+                return;
+            }
+
+            if (!ReturnStatementHelper.IsContainingDeclarationPublic(returnStatement))
             {
                 return;
             }

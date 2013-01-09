@@ -106,12 +106,50 @@
             }
         }
 
-        public static bool HasPublicModifier(IReturnStatement returnStatement)
+        public static bool IsContainingDeclarationPublic(IReturnStatement returnStatement)
         {
             try
             {
                 var memberDeclarations = returnStatement.GetContainingTypeMemberDeclaration();
                 return memberDeclarations.ModifiersList.Modifiers.Any(m => m.GetTokenType() == CSharpTokenType.PUBLIC_KEYWORD);
+            }
+            catch (Exception exn)
+            {
+                Debug.WriteLine(exn);
+                return false;
+            }
+        }
+
+        public static bool IsContainingDeclarationReturnTypeIObservable(IReturnStatement returnStatement)
+        {
+            try
+            {
+                var declaredElement = returnStatement.GetContainingTypeMemberDeclaration().DeclaredElement;
+
+                IDeclaredType scalarType = null;
+                var property = declaredElement as IProperty;
+                var method = declaredElement as IMethod;
+
+                if (property != null)
+                {
+                    scalarType = property.Type.GetScalarType();
+                }
+                else if (method != null)
+                {
+                    scalarType = method.ReturnType.GetScalarType();
+                }
+
+                if (scalarType == null)
+                {
+                    return false;
+                }
+
+                if (scalarType.GetClrName().FullName != ObservableInterfaceName)
+                {
+                    return false;
+                }
+                
+                return true;
             }
             catch (Exception exn)
             {
