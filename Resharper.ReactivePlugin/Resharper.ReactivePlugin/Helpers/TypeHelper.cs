@@ -8,6 +8,17 @@
         private const string ObservableInterfaceName = "System.IObservable`1";
         private const string SchedulerInterfaceName = "System.Reactive.Concurrency.IScheduler";
 
+        public static bool IsIObservableType(IType type)
+        {
+            var scalarType = type.GetScalarType();
+            if (scalarType == null)
+            {
+                return false;
+            }
+
+            return scalarType.GetClrName().FullName == ObservableInterfaceName;
+        }
+
         public static bool HasIObservableSuperType(IType type)
         {
             var scalarType = type.GetScalarType();

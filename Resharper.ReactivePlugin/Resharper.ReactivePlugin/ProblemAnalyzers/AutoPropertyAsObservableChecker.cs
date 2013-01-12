@@ -33,12 +33,12 @@
                 return;
             }
 
-            if (PropertyHelper.IsSourceAssignmentAsObservable(expression))
+            if (!TypeHelper.IsIObservableType(property.ReturnType))
             {
                 return;
             }
 
-            if (!TypeHelper.HasIObservableSuperType(property.ReturnType))
+            if (PropertyHelper.IsSourceAssignmentAsObservable(expression))
             {
                 return;
             }

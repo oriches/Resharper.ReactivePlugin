@@ -9,10 +9,10 @@
     {
         public File13()
         {
-            Method = |new ReplaySubject<Unit>(42, Scheduler.Immediate)|(0);
+            AutoProperty = |new ReplaySubject<Unit>(42, Scheduler.Immediate)|(0);
         }
 
-        public IObservable<Unit> Method { get; private set; }
+        public IObservable<Unit> AutoProperty { get; private set; }
     }
 }
 

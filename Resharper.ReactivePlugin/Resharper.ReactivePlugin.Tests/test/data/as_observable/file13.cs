@@ -9,9 +9,9 @@ namespace Resharper.ReactivePlugin.Tests.test.data.as_observable
     {
         public File13()
         {
-            Method = new ReplaySubject<Unit>(42, Scheduler.Immediate);
+            AutoProperty = new ReplaySubject<Unit>(42, Scheduler.Immediate);
         }
 
-        public IObservable<Unit> Method { get; private set; }
+        public IObservable<Unit> AutoProperty { get; private set; }
     }
 }

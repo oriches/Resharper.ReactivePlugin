@@ -8,9 +8,9 @@ namespace Resharper.ReactivePlugin.Tests.test.data.as_observable
     {
         public File14()
         {
-            Property = new CustomObservable<Unit>();
+            AutoProperty = new CustomObservable<Unit>();
         }
 
-        public IObservable<Unit> Property { get; private set; }
+        public IObservable<Unit> AutoProperty { get; private set; }
     }
 }

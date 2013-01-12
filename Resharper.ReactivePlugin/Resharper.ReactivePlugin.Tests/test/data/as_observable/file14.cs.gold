@@ -8,10 +8,10 @@
     {
         public File14()
         {
-            Property = |new CustomObservable<Unit>()|(0);
+            AutoProperty = |new CustomObservable<Unit>()|(0);
         }
 
-        public IObservable<Unit> Property { get; private set; }
+        public IObservable<Unit> AutoProperty { get; private set; }
     }
 }
 
