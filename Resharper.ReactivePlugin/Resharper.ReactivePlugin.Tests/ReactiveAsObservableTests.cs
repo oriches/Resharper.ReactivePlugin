@@ -262,7 +262,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file26.cs")]
-        public void should_not_highlight_missing_as_observable_for_custom_type_returned_as_custom_type_in_public_auto_property(string testName)
+        public void should_not_highlight_as_observable_for_custom_type_returned_as_custom_type_in_public_auto_property(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -272,7 +272,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file27.cs")]
-        public void should_not_highlight_missing_as_observable_for_subject_type_returned_as_subject_type_in_public_auto_property(string testName)
+        public void should_not_highlight_as_observable_for_subject_type_returned_as_subject_type_in_public_auto_property(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
