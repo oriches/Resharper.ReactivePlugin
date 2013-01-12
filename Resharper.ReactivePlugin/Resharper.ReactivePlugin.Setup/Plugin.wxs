@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Reactive Extensions Plugin for Resharper" Language="1033" Version="0.2.1.0" Manufacturer="Ollie Riches" UpgradeCode="de573451-9544-432f-8534-afcb9e43a8b4">
+	<Product Id="*" Name="Reactive Extensions Plugin for Resharper" Language="1033" Version="0.2.2.0" Manufacturer="Ollie Riches" UpgradeCode="de573451-9544-432f-8534-afcb9e43a8b4">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate EmbedCab="yes" />
-
+v
 		<Feature Id="ProductFeature" Title="Reactive Extensions Plugin for Resharper" Level="1">
 			<ComponentGroupRef Id="ProductComponents"   />
 		</Feature>
