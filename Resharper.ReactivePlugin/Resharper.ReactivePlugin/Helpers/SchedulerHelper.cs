@@ -171,9 +171,15 @@
 
         private static bool DoesParametersContainSchedulerInterface(IEnumerable<IParameter> parameters, out IParameter schedulerParameter)
         {
-            schedulerParameter = parameters.SingleOrDefault(parameter => ((IDeclaredType)parameter.Type).GetClrName().FullName == SchedulerInterfaceName);
+            schedulerParameter = parameters
+                .Where(pt => pt.Type is IDeclaredType)
+                .SingleOrDefault(pt =>
+                                     {
+                                         var declaredType = pt.Type.GetScalarType();
+                                         return declaredType != null && declaredType.GetClrName().FullName == SchedulerInterfaceName;
+                                     });
 
-            return schedulerParameter != null;
+            return schedulerParameter != null; 
         }
     }
 }

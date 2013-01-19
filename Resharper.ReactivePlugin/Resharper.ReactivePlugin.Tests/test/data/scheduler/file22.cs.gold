@@ -1,0 +1,19 @@
+namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
+{
+    using System.Reactive.Concurrency;
+    using System.Reactive.Linq;
+
+    public class File22
+    {
+        public static void Main()
+        {
+            var return1 = Observable.Return(42, NewThreadScheduler.Default);
+            var return2 = Observable.Return(42, NewThreadScheduler.Default);
+
+            return1.|Merge(return2)|(0);
+        }
+    }
+}
+
+---------------------------------------------------------
+(0): ReSharper Suggestion: Consider explicitly defining the scheduler, this can help reduce threading issues and improve testing.

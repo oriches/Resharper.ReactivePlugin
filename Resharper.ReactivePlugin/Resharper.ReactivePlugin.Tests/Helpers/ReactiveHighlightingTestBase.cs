@@ -1,4 +1,4 @@
-namespace Resharper.ReactivePlugin.Tests
+namespace Resharper.ReactivePlugin.Tests.Helpers
 {
     using System;
     using System.Diagnostics;
@@ -13,7 +13,7 @@ namespace Resharper.ReactivePlugin.Tests
         "System.Reactive.Linq",
         "System.Reactive.PlatformServices",
         "Resharper.ReactivePlugin.Tests.Classes")]
-    public abstract class ReactiveCSharpHighlightingTestBase : CSharpHighlightingTestBase
+    public abstract class ReactiveHighlightingTestBase : CSharpHighlightingTestBase
     {
         public IDisposable ResolverReactiveAssemblies()
         {

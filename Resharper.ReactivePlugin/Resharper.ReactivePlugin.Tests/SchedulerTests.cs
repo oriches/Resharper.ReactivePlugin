@@ -1,5 +1,6 @@
 namespace Resharper.ReactivePlugin.Tests
 {
+    using Helpers;
     using Highlighters;
     using JetBrains.Application.Settings;
     using JetBrains.ReSharper.Daemon;
@@ -8,7 +9,7 @@ namespace Resharper.ReactivePlugin.Tests
 
     [TestNetFramework45]
     [TestFixture]
-    public class ReactiveSchedulerTests : ReactiveCSharpHighlightingTestBase
+    public class SchedulerTests : ReactiveHighlightingTestBase
     {
         protected override bool HighlightingPredicate(IHighlighting highlighting, IContextBoundSettingsStore settingsstore)
         {
@@ -233,6 +234,16 @@ namespace Resharper.ReactivePlugin.Tests
         [Test]
         [TestCase("file21.cs")]
         public void should_highlight_explicit_extension_method_which_can_take_scheduler(string testName)
+        {
+            using (ResolverReactiveAssemblies())
+            {
+                DoTestFiles(testName);
+            }
+        }
+
+        [Test]
+        [TestCase("file22.cs")]
+        public void should_highlight_extension_method_which_can_take_scheduler2(string testName)
         {
             using (ResolverReactiveAssemblies())
             {

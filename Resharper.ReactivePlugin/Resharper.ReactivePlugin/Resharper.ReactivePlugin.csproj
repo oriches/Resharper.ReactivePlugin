@@ -66,6 +66,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Actions.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CodeCleanup\" />
+  </ItemGroup>
   <PropertyGroup>
     <ReSharperSdkTargets Condition=" '$(ReSharperSdkTargets)' == '' ">$(MSBuildExtensionsPath)\JetBrains\ReSharper.SDK\v7.1</ReSharperSdkTargets>
   </PropertyGroup>

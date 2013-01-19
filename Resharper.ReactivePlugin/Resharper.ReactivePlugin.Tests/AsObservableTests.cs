@@ -1,5 +1,6 @@
 namespace Resharper.ReactivePlugin.Tests
 {
+    using Helpers;
     using Highlighters;
     using JetBrains.Application.Settings;
     using JetBrains.ReSharper.Daemon;
@@ -8,7 +9,7 @@ namespace Resharper.ReactivePlugin.Tests
 
     [TestNetFramework45]
     [TestFixture]
-    public class ReactiveAsObservableTests : ReactiveCSharpHighlightingTestBase
+    public class AsObservableTests : ReactiveHighlightingTestBase
     {
         protected override bool HighlightingPredicate(IHighlighting highlighting, IContextBoundSettingsStore settingsstore)
         {

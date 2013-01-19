@@ -4,10 +4,18 @@
     using System.Diagnostics;
     using JetBrains.ReSharper.Psi;
     using JetBrains.ReSharper.Psi.CSharp.Tree;
+    using JetBrains.ReSharper.Psi.Tree;
 
     public static class MethodHelper
     {
         private const string ObservableInterfaceName = "System.IObservable`1";
+
+        public static bool IsMethod(IExpression expression, out IMethod method)
+        {
+            method = null;
+            var invocationExpression = expression as IInvocationExpression;
+            return invocationExpression != null && IsMethod(invocationExpression, out method);
+        }
 
         public static bool IsMethod(IInvocationExpression expression, out IMethod method)
         {
