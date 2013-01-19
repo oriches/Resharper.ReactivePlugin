@@ -106,7 +106,8 @@
             }
 
             // Is the last parameter an IScheduler (possible overload)...
-            if (((IDeclaredType) parameters.Last().Type).GetClrName().FullName != SchedulerInterfaceName)
+            var lastParameterType = parameters.Last().Type as IDeclaredType;
+            if (lastParameterType != null && lastParameterType.GetClrName().FullName != SchedulerInterfaceName)
             {
                 return false;
             }

@@ -3,7 +3,7 @@ namespace Resharper.ReactivePlugin.Tests
     using Helpers;
     using NUnit.Framework;
 
-    [TestFixture, Ignore]
+    [TestFixture]
     public class UseSelectManyInsteadOfMergeTest : ReactiveCodeCleanupTestBase
     {
         protected override string RelativeTestDataPath
