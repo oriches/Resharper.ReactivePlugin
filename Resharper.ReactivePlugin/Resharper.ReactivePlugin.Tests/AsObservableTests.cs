@@ -7,7 +7,7 @@ namespace Resharper.ReactivePlugin.Tests
     using JetBrains.ReSharper.TestFramework;
     using NUnit.Framework;
 
-    [TestNetFramework45]
+    [TestNetFramework4]
     [TestFixture]
     public class AsObservableTests : ReactiveHighlightingTestBase
     {

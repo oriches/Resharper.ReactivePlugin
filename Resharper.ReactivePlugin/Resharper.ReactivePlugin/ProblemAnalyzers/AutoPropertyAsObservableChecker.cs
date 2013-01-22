@@ -20,26 +20,31 @@
             IProperty property;
             if (!PropertyHelper.IsPropertyAssignment(expression, out property))
             {
+                // It's not a proerties...
                 return;
             }
 
             if (!PropertyHelper.HasPublicModifier(property))
             {
+                // It's not a public properties...
                 return;
             }
 
             if (!PropertyHelper.IsAutoProperty(property))
             {
+                // It's not a public auto properties...
                 return;
             }
 
             if (!TypeHelper.IsIObservableType(property.ReturnType))
             {
+                // The return isn't IObservable<T>...
                 return;
             }
 
             if (PropertyHelper.IsSourceAssignmentAsObservable(expression))
             {
+                // It's already calling AsObservable()...
                 return;
             }
 

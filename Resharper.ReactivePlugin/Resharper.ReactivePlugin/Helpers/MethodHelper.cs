@@ -8,6 +8,7 @@
 
     public static class MethodHelper
     {
+        private const string ReactiveLinqAssemblyFullName = "System.Reactive.Linq.Observable";
         private const string ObservableInterfaceName = "System.IObservable`1";
 
         public static bool IsMethod(IExpression expression, out IMethod method)
@@ -57,6 +58,25 @@
                 }
 
                 return declaredType.GetClrName().FullName == ObservableInterfaceName;
+            }
+            catch (Exception exn)
+            {
+                Debug.WriteLine(exn);
+                return false;
+            }
+        }
+
+        public static bool IsFromReactiveObservableClass(IMethod method)
+        {
+            try
+            {
+                var classType = method.GetContainingType();
+                if (classType == null)
+                {
+                    return false;
+                }
+
+                return classType.GetClrName().FullName == ReactiveLinqAssemblyFullName;
             }
             catch (Exception exn)
             {

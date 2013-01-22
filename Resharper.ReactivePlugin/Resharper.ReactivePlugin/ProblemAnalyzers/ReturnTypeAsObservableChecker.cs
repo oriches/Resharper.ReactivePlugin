@@ -15,26 +15,31 @@
         {
             if (!ReturnStatementHelper.IsContainingDeclarationReturnTypeIObservable(returnStatement))
             {
+                // It's not  return type IObservable<T>...
                 return;
             }
 
             if (!ReturnStatementHelper.IsContainingDeclarationPublic(returnStatement))
             {
+                // It's part of a public method or property...
                 return;
             }
 
             if (ReturnStatementHelper.IsReturnTypeAsObservable(returnStatement))
             {
+                // It's already calling AsObservable...
                 return;
             }
 
             if (!ReturnStatementHelper.IsReturnTypeIObservable(returnStatement))
             {
+                // The return type isn't IObservable<T>...
                 return;
             }
 
             if (ReturnStatementHelper.IsReturnTypeOnlyIObservable(returnStatement))
             {
+                // The return type can't be case to away from IObservable<T>...
                 return;
             }
 

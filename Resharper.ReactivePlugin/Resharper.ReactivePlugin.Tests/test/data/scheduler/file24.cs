@@ -1,19 +1,17 @@
-﻿namespace Resharper.ReactivePlugin.Tests.test.data.select_many
+namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
 {
     using System;
     using System.Collections.Generic;
     using System.Reactive.Linq;
     using Microsoft.Reactive.Testing;
 
-    public class Tests
+    public class File24
     {
         private readonly TestScheduler _testScheduler = new TestScheduler();
 
-        public IObservable<int> Method()
+        public void Main()
         {
-            return new List<int> { 1, 2, 3 }.ToObservable(_testScheduler)
-                .Select(GenerateNumbers)
-                .Merge();
+            var test = Observable.Merge(GenerateNumbers(34), GenerateNumbers(42));
         }
 
         private IObservable<int> GenerateNumbers(int number)

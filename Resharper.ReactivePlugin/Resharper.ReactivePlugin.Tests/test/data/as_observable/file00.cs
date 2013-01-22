@@ -32,7 +32,7 @@ namespace Resharper.ReactivePlugin.Tests.test.data.as_observable
 
         public IEnumerable<object> Property3
         {
-            get { return  Enumerable.Empty<object>(); }
+            get { return Enumerable.Empty<object>(); }
         }
     }
 }

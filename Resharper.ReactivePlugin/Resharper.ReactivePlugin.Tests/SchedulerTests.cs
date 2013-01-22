@@ -7,7 +7,7 @@ namespace Resharper.ReactivePlugin.Tests
     using JetBrains.ReSharper.TestFramework;
     using NUnit.Framework;
 
-    [TestNetFramework45]
+    [TestNetFramework4]
     [TestFixture]
     public class SchedulerTests : ReactiveHighlightingTestBase
     {
@@ -222,8 +222,28 @@ namespace Resharper.ReactivePlugin.Tests
         }
 
         [Test]
+        [TestCase("file24.cs")]
+        public void should_highlight_observable_method_which_can_take_scheduler_for_parameterised_overload2(string testName)
+        {
+            using (ResolverReactiveAssemblies())
+            {
+                DoTestFiles(testName);
+            }
+        }
+
+        [Test]
         [TestCase("file20.cs")]
         public void should_not_highlight_observable_method_which_can_not_take_scheduler_for_parameterised_overload(string testName)
+        {
+            using (ResolverReactiveAssemblies())
+            {
+                DoTestFiles(testName);
+            }
+        }
+
+        [Test]
+        [TestCase("file23.cs")]
+        public void should_not_highlight_observable_method_which_can_not_take_scheduler_for_parameterised_overload2(string testName)
         {
             using (ResolverReactiveAssemblies())
             {

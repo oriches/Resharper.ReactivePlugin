@@ -1,23 +1,17 @@
-namespace Resharper.ReactivePlugin.Tests.test.data.select_many
+namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
 {
     using System;
     using System.Collections.Generic;
     using System.Reactive.Linq;
     using Microsoft.Reactive.Testing;
 
-    public class Tests
+    public class File24
     {
         private readonly TestScheduler _testScheduler = new TestScheduler();
 
-        public IObservable<int> Method()
+        public void Main()
         {
-            var tmp = new List<int> {1, 2, 3}
-                .ToObservable(_testScheduler)
-                .Timeout(TimeSpan.FromSeconds(10))
-                .Select(GenerateNumbers);
-
-            var tmp2 = Observable.Merge(tmp){caret};
-            return tmp2;
+            var test = Observable.|Merge(GenerateNumbers(34))|(0);
         }
 
         private IObservable<int> GenerateNumbers(int number)
@@ -32,3 +26,6 @@ namespace Resharper.ReactivePlugin.Tests.test.data.select_many
         }
     }
 }
+
+---------------------------------------------------------
+(0): ReSharper Suggestion: Consider explicitly defining the scheduler, this can help reduce threading issues and improve testing.

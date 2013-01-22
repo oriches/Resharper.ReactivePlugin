@@ -47,6 +47,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContextActions\UseSelectManyInsteadOfMerge.cs" />
     <Compile Include="Helpers\PropertyHelper.cs" />
     <Compile Include="Helpers\ReturnStatementHelper.cs" />
     <Compile Include="Helpers\TypeHelper.cs" />
@@ -66,9 +67,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Actions.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CodeCleanup\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <ReSharperSdkTargets Condition=" '$(ReSharperSdkTargets)' == '' ">$(MSBuildExtensionsPath)\JetBrains\ReSharper.SDK\v7.1</ReSharperSdkTargets>
   </PropertyGroup>
