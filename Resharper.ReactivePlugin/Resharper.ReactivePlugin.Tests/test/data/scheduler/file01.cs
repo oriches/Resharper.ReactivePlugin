@@ -6,7 +6,7 @@ namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
     {
         public static void Main()
         {
-            Observable.Return(42).Select(n => n);
+            Observable.Return(42);
         }
     }
 }

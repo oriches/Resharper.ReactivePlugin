@@ -12,6 +12,7 @@ namespace Resharper.ReactivePlugin.Tests.Helpers
         "System.Reactive.Core", 
         "System.Reactive.Linq",
         "System.Reactive.PlatformServices",
+        "Microsoft.Reactive.Testing",
         "Resharper.ReactivePlugin.Tests.Classes")]
     public abstract class ReactiveHighlightingTestBase : CSharpHighlightingTestBase
     {

@@ -11,7 +11,9 @@ namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
 
         public void Main()
         {
+// ReSharper disable InvokeAsExtensionMethod
             var test = Observable.Merge(GenerateNumbers(34), GenerateNumbers(42));
+// ReSharper restore InvokeAsExtensionMethod
         }
 
         private IObservable<int> GenerateNumbers(int number)

@@ -6,35 +6,24 @@
     using System.Linq;
     using JetBrains.ReSharper.Psi;
     using JetBrains.ReSharper.Psi.CSharp.Tree;
+    using JetBrains.ReSharper.Psi.Util;
+    using IParameter = JetBrains.ReSharper.Psi.IParameter;
 
     public static class SchedulerHelper
     {
         private const string SchedulerInterfaceName = "System.Reactive.Concurrency.IScheduler";
 
-        public static bool HasPopulatedSchedulerParameter<T>(T owner, IArgumentList argumentList) where T : IParametersOwner
+        public static bool HasSchedulerParameter<T>(T owner, IArgumentList argumentList, out IParameter schedulerParameter) where T : IParametersOwner
         {
-            ICSharpArgument schedulerArgument;
-            return HasPopulatedSchedulerParameter(owner, argumentList, out schedulerArgument);
-        }
-
-        public static bool HasPopulatedSchedulerParameter<T>(T owner, IArgumentList argumentList, out ICSharpArgument schedulerArgument) where T : IParametersOwner
-        {
-            schedulerArgument = null;
-
             try
             {
-                IParameter schedulerParameter;
-                if (!DoesParametersContainSchedulerInterface(owner.Parameters, out schedulerParameter))
-                {
-                    return false;
-                }
-
-                return !schedulerParameter.IsOptional ||
-                       argumentList.Arguments.Any(a => TypeHelper.HasISchedulerSuperType(a.Value.Type()));
+                return DoesParametersContainSchedulerInterface(owner.Parameters, out schedulerParameter);
             }
             catch (Exception exn)
             {
                 Debug.WriteLine(exn);
+
+                schedulerParameter = null;
                 return false;
             }
         }
@@ -52,95 +41,35 @@
             }
         }
 
-        public static bool HasOverloadWithSchedulerParameter(IMethod method, IArgumentList argumentList)
+        public static bool HasOverloadWithSchedulerParameter(IMethod method, IInvocationExpression invocationExpression)
         {
             try
             {
-                var typeElement = method.GetContainingType();
-                if (typeElement == null)
-                {
-                    return false;
-                }
+                var possibleOverloads = TypeElementUtil.GetAllOverridableMembers(method.GetContainingType())
+                                                       .Select(omi => omi.Member as IMethod)
+                                                       .Where(om => om.IsExtensionMethod == method.IsExtensionMethod)
+                                                       .Where(om => om.ShortName == method.ShortName)
+                                                       .Select(om => new PossibleOverload(method, om))
+                                                       .ToArray();
 
-                return typeElement.GetMembers()
-                                  .Where(m => m.ShortName == method.ShortName)
-                                  .OfType<IMethod>()
-                                  .Any(m => DoesOverloadSupportCurrentArgumentsAndScheduler(method, argumentList, m.Parameters));
+                var fitleredOverloads =
+                    possibleOverloads.Where(po => !po.OriginalParameters.Equals(po.OverloadParameters))
+                                     .Where(po => po.OriginalParameters.Except(po.OverloadParameters).Count() == 0)
+                                     .Where(po => po.OverloadParameters.Except(po.OriginalParameters).Count() == 1)
+                                     .ToArray();
+
+                var hasOverload =
+                    fitleredOverloads.Any(
+                        po =>
+                        po.OverloadParameters.Except(po.OriginalParameters).First().TypeName == SchedulerInterfaceName);
+
+                return hasOverload;
             }
             catch (Exception exn)
             {
                 Debug.WriteLine(exn);
                 return false;
             }
-        }
-
-        private static bool DoesOverloadSupportCurrentArgumentsAndScheduler(IMethod method,
-            IArgumentList argumentList,
-            IList<IParameter> parameters)
-        {
-            // If no parameters it can't be an overload...
-            if (parameters.Count == 0)
-            {
-                return false;
-            }
-
-            // Is the number of parameters n more than the current number of arguments (possible overload)...
-            // If it's an extension method then n == 2 or 1 else n == 1
-            if (method.IsExtensionMethod)
-            {
-                // Extension method can be invoked in either of 2 ways so we check parameter count twice...
-                var implicitCount = argumentList.Arguments.Count + 1;
-                var explicitCount = argumentList.Arguments.Count + 2;
-
-                if (explicitCount != parameters.Count && implicitCount != parameters.Count)
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                if ((argumentList.Arguments.Count + 1) != parameters.Count)
-                {
-                    return false;
-                }
-            }
-
-            // Is the last parameter an IScheduler (possible overload)...
-            var lastParameterType = parameters.Last().Type as IDeclaredType;
-            if (lastParameterType != null && lastParameterType.GetClrName().FullName != SchedulerInterfaceName)
-            {
-                return false;
-            }
-
-            for (var i = 0; i < argumentList.Arguments.Count(); i++)
-            {
-                var argument = argumentList.Arguments[i];
-                var argumentType = argument.Value.Type().GetScalarType();
-                if (argumentType == null)
-                {
-                    return false;
-                }
-
-                var parameter = parameters[i];
-                var parameterType = parameter.Type.GetScalarType();
-                if (parameterType == null)
-                {
-                    return false;
-                }
-
-                // Generic parameter...
-                if (parameterType.IsOpenType)
-                {
-                    continue;
-                }
-
-                if (argumentType.GetClrName().FullName != parameterType.GetClrName().FullName)
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
 
         public static bool HasOverloadWithSchedulerParameter(IConstructor constructor)

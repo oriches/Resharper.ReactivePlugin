@@ -67,8 +67,6 @@
   <ItemGroup>
     <Compile Include="Helpers\ReactiveCSharpContextActionAvailabilityTestBase.cs" />
     <Compile Include="Helpers\ReactiveCSharpContextActionExecuteTestBase.cs" />
-    <Compile Include="MergeContextActionExecutionTest1.cs" />
-    <Compile Include="MergeContextActionAvailabilityTest.cs" />
     <Compile Include="Helpers\ReactiveCodeCleanupTestBase.cs" />
     <Compile Include="test\data\scheduler\file24.cs" />
     <Compile Include="test\data\scheduler\file22.cs" />

@@ -8,12 +8,13 @@ namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
     public class File23
     {
         private readonly TestScheduler _testScheduler = new TestScheduler();
+        private readonly TimeSpan _timeout = TimeSpan.FromSeconds(10);
 
         public IObservable<int> Method()
         {
             return new List<int> { 1, 2, 3 }
                .ToObservable(_testScheduler)
-               .Timeout(TimeSpan.FromSeconds(10), _testScheduler)
+               .Timeout(_timeout, _testScheduler)
                .Select(GenerateNumbers)
                .Merge();
         }
@@ -30,4 +31,5 @@ namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
         }
     }
 }
+
 ---------------------------------------------------------

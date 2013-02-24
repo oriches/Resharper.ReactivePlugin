@@ -29,31 +29,48 @@
                 return;
             }
 
-            if (SchedulerHelper.HasPopulatedSchedulerParameter(method, expression.ArgumentList))
+            IParameter schedulerParameter;
+            if (SchedulerHelper.HasSchedulerParameter(method, expression.ArgumentList, out schedulerParameter))
             {
-                // Scheduler has been defined nothing to check...
-                return;
+                // If it's optional is it not null...
+                if (schedulerParameter.IsOptional)
+                {
+                    if (!System.Linq.Enumerable.Any(expression.ArgumentList.Arguments,
+                                                    a => TypeHelper.HasISchedulerSuperType(a.Value.Type())))
+                    {
+                        // Scheduler parameter is not defined (null)...
+                        CreateHighlightAndAddToConsumer(method, expression, consumer);
+                    }
+                }
             }
-
-            if (!SchedulerHelper.HasOverloadWithSchedulerParameter(method, expression.ArgumentList))
+            else
             {
-                return;
+                if (!SchedulerHelper.HasOverloadWithSchedulerParameter(method, expression))
+                {
+                    // Can't find an overload with the scheduler parameter...
+                    return;
+                }
+
+                // Overloaded version taking IScheduler as a parameter does exist
+                // You could be using this overload so we create a highlight...
+                CreateHighlightAndAddToConsumer(method, expression, consumer);
             }
+        }
 
-            // Overloaded version taking IScheduler as a parameter does exist
-            // You could be using this overload so we create a highlight...
-
+        private void CreateHighlightAndAddToConsumer(IMethod method, IInvocationExpression expression, IHighlightingConsumer consumer)
+        {
             var methodName = method.ShortName;
             var invokedText = expression.InvokedExpression.GetText();
-            var lastIndex = invokedText.LastIndexOf(methodName, System.StringComparison.Ordinal);
 
             var range = expression.GetDocumentRange();
+            
+            var lastIndex = invokedText.LastIndexOf(methodName, System.StringComparison.Ordinal);
             if (lastIndex != 0)
             {
                 var textRange = new TextRange(range.TextRange.StartOffset + lastIndex, range.TextRange.EndOffset);
                 range = new DocumentRange(expression.GetDocumentRange().Document, textRange);
             }
-            
+
             var file = expression.GetContainingFile();
             var highlighting = new UndefinedSchedulerHighlighting(expression);
             var info = new HighlightingInfo(range, highlighting, new Severity?());
