@@ -23,7 +23,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file00.cs")]
-        public void should_not_highlight_none_observable_methods(string testName)
+        public void will_not_highlight_none_observable_methods(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -33,7 +33,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file01.cs")]
-        public void should_highlight_observable_method_which_can_take_scheduler(string testName)
+        public void will_highlight_observable_method_which_can_take_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -43,7 +43,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file02.cs")]
-        public void should_not_highlight_observable_method_which_has_scheduler_defined(string testName)
+        public void will_not_highlight_observable_method_which_has_scheduler_defined(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -53,7 +53,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file03.cs")]
-        public void should_not_highlight_observable_method_which_can_not_take_scheduler(string testName)
+        public void will_not_highlight_observable_method_which_can_not_take_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -63,7 +63,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file04.cs")]
-        public void should_highlight_multiple_observable_methods_which_can_take_schedulers(string testName)
+        public void will_highlight_multiple_observable_methods_which_can_take_schedulers(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -73,7 +73,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file05.cs")]
-        public void should_highlight_lambda_observable_method_which_can_take_scheduler(string testName)
+        public void will_highlight_lambda_observable_method_which_can_take_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -83,7 +83,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file06.cs")]
-        public void should_highlight_subject_constructor_which_can_take_scheduler(string testName)
+        public void will_highlight_subject_constructor_which_can_take_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -93,7 +93,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file07.cs")]
-        public void should_not_highlight_subject_constructor_which_has_scheduler(string testName)
+        public void will_not_highlight_subject_constructor_which_has_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -103,7 +103,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file08.cs")]
-        public void should_highlight_method_which_can_take_optional_scheduler(string testName)
+        public void will_highlight_method_which_can_take_optional_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -113,7 +113,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file09.cs")]
-        public void should_not_highlight_method_with_defined_optional_which_has_scheduler(string testName)
+        public void will_not_highlight_method_with_defined_optional_which_has_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -123,7 +123,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file10.cs")]
-        public void should_highlight_constructor_which_can_take_scheduler(string testName)
+        public void will_highlight_constructor_which_can_take_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -133,7 +133,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file11.cs")]
-        public void should_not_highlight_constructor_which_has_scheduler(string testName)
+        public void will_not_highlight_constructor_which_has_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -143,7 +143,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file12.cs")]
-        public void should_not_highlight_method_which_can_not_take_scheduler(string testName)
+        public void will_not_highlight_method_which_can_not_take_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -153,7 +153,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file13.cs")]
-        public void should_highlight_extension_method_which_can_take_scheduler(string testName)
+        public void will_highlight_extension_method_which_can_take_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -163,7 +163,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file14.cs")]
-        public void should_not_highlight_extension_method_which_has_scheduler(string testName)
+        public void will_not_highlight_extension_method_which_has_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -173,7 +173,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file15.cs")]
-        public void should_not_highlight_extension_method_which_can_not_take_scheduler(string testName)
+        public void will_not_highlight_extension_method_which_can_not_take_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -183,7 +183,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file16.cs")]
-        public void should_highlight_all_observable_method_name(string testName)
+        public void will_highlight_all_observable_method_name(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -193,7 +193,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file17.cs")]
-        public void should_highlight_all_observable_method_name_but_not_local_variable_name(string testName)
+        public void will_highlight_all_observable_method_name_but_not_local_variable_name(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -203,7 +203,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file18.cs")]
-        public void should_not_highlight_observable_method_which_can_take_scheduler_for_parameterised_overload(string testName)
+        public void will_not_highlight_observable_method_which_can_take_scheduler_for_parameterised_overload(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -213,7 +213,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file19.cs")]
-        public void should_highlight_observable_method_which_can_take_scheduler_for_parameterised_overload(string testName)
+        public void will_highlight_observable_method_which_can_take_scheduler_for_parameterised_overload(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -223,7 +223,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file24.cs")]
-        public void should_highlight_observable_method_which_can_take_scheduler_for_parameterised_overload2(string testName)
+        public void will_highlight_observable_method_which_can_take_scheduler_for_parameterised_overload2(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -233,7 +233,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file20.cs")]
-        public void should_not_highlight_observable_method_which_can_not_take_scheduler_for_parameterised_overload(string testName)
+        public void will_not_highlight_observable_method_which_can_not_take_scheduler_for_parameterised_overload(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -243,7 +243,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file23.cs")]
-        public void should_not_highlight_observable_method_which_can_not_take_scheduler_for_parameterised_overload2(string testName)
+        public void will_not_highlight_observable_method_which_can_not_take_scheduler_for_parameterised_overload2(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -253,7 +253,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file21.cs")]
-        public void should_highlight_explicit_extension_method_which_can_take_scheduler(string testName)
+        public void will_highlight_explicit_extension_method_which_can_take_scheduler(string testName)
         {
             using (ResolverReactiveAssemblies())
             {
@@ -263,7 +263,7 @@ namespace Resharper.ReactivePlugin.Tests
 
         [Test]
         [TestCase("file22.cs")]
-        public void should_highlight_extension_method_which_can_take_scheduler2(string testName)
+        public void will_highlight_extension_method_which_can_take_scheduler2(string testName)
         {
             using (ResolverReactiveAssemblies())
             {

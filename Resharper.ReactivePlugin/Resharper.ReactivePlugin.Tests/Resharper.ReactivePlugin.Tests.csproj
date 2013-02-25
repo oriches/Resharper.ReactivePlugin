@@ -188,9 +188,7 @@
     <None Include="test\data\scheduler\file06.cs.gold" />
     <None Include="test\data\scheduler\file07.cs.gold" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="test\data\merge\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <ReSharperSdkTargets Condition=" '$(ReSharperSdkTargets)' == '' ">$(MSBuildExtensionsPath)\JetBrains\ReSharper.SDK\v7.1</ReSharperSdkTargets>
   </PropertyGroup>
