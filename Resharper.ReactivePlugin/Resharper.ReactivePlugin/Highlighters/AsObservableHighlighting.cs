@@ -51,6 +51,11 @@ namespace Resharper.ReactivePlugin.Highlighters
             return _expression.GetDocumentRange();
         }
 
+        public IExpression Expression
+        {
+            get { return _expression; }
+        }
+
         public bool IsValid()
         {
             return _expression == null || _expression.IsValid();
