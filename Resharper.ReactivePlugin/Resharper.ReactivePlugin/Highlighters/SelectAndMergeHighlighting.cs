@@ -1,11 +1,11 @@
 ﻿using JetBrains.ReSharper.Daemon;
 using Resharper.ReactivePlugin.Highlighters;
 
-[assembly: RegisterConfigurableSeverity(SchedulerHighlighting.SeverityId,
+[assembly: RegisterConfigurableSeverity(SelectAndMergeHighlighting.SeverityId,
   null,
   HighlightingGroupIds.CodeSmell,
-  "Reactive extensions 'IScheduler' instance is not defined.",
-  "Not explicitly defining the 'IScheduler' could introduce scheduling deadlocks, especially in UI based application where there is a single UI dispatcher thread.",
+  "Reactive extensions 'Select' & 'Merge' can be replaced by a single call to 'SelectMany'.",
+  "'Select' & 'Merge can be replaced by 'SelectMany'",
   Severity.SUGGESTION,
   false)]
 
@@ -18,20 +18,22 @@ namespace Resharper.ReactivePlugin.Highlighters
     using JetBrains.ReSharper.Psi.Tree;
 
     [ConfigurableSeverityHighlighting(SeverityId, CSharpLanguage.Name, OverlapResolve = OverlapResolveKind.WARNING)]
-    public abstract class SchedulerHighlighting : IHighlightingWithRange
+    public sealed class SelectAndMergeHighlighting : IHighlightingWithRange
     {
-        public const string SeverityId = "ReactiveSchedulerChecker";
+        public const string SeverityId = "ReactiveSelectAndMergeChecker";
+
+        private const string ToolTipInfo = "Consider combining the calls to 'Select' & 'Merge' into a single call to 'SelectMany'.";
 
         private readonly IExpression _expression;
 
-        protected SchedulerHighlighting(IExpression expression)
+        public SelectAndMergeHighlighting(IExpression expression)
         {
             _expression = expression;
         }
 
-        public virtual string ToolTip
+        public string ToolTip
         {
-            get { return string.Empty; }
+            get { return ToolTipInfo; }
         }
 
         public string ErrorStripeToolTip
@@ -47,6 +49,11 @@ namespace Resharper.ReactivePlugin.Highlighters
         public DocumentRange CalculateRange()
         {
             return _expression.GetDocumentRange();
+        }
+
+        public IExpression Expression
+        {
+            get { return _expression; }
         }
 
         public bool IsValid()

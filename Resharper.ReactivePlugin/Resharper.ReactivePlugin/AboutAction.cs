@@ -5,7 +5,7 @@ namespace Resharper.ReactivePlugin
     using JetBrains.Application.DataContext;
 
     [ActionHandler("Resharper.ReactivePlugin.About")]
-    public class AboutAction : IActionHandler
+    public sealed class AboutAction : IActionHandler
     {
         public bool Update(IDataContext context, ActionPresentation presentation, DelegateUpdate nextUpdate)
         {

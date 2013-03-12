@@ -8,7 +8,7 @@ namespace Resharper.ReactivePlugin.QuickFixes
     using JetBrains.Util;
 
     [QuickFix]
-    public class AsObservableQuickFix : IQuickFix
+    public sealed class AsObservableQuickFix : IQuickFix
     {
         private readonly AsObservableHighlighting _highlighting;
 

@@ -33,5 +33,15 @@ namespace Resharper.ReactivePlugin.Tests
                 DoTestFiles(testName);
             }
         }
+
+        [Test]
+        [TestCase("file03.cs")]
+        public void will_add_namespace_reference_when_as_observable_quick_fix_applied(string testName)
+        {
+            using (ResolverReactiveAssemblies())
+            {
+                DoTestFiles(testName);
+            }
+        }
     }
 }

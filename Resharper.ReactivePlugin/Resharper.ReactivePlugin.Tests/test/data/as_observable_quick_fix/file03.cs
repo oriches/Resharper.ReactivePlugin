@@ -5,18 +5,13 @@ namespace Resharper.ReactivePlugin.Tests.test.data.as_observable_quick_fix
     using System.Reactive.Concurrency;
     using System.Reactive.Subjects;
 
-    public class Availability01
+    public class File01
     {
         private readonly ReplaySubject<Unit> _test = new ReplaySubject<Unit>(42, Scheduler.Immediate);
 
         public IObservable<Unit> Method()
         {
-            return |_test|(0);
+            return _test{caret};
         }
     }
 }
-
-------------------------------------------------
-0: Consider calling method 'AsObservable' to prevent casting return type back to the declaring type, 'AsObservable' hides the identity of an observable sequence.
-QUICKFIXES:
-Add 'AsObservable()' to return parameter

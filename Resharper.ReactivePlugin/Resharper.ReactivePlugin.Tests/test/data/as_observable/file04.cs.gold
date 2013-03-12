@@ -15,4 +15,4 @@
     }
 }
 ---------------------------------------------------------
-(0): ReSharper Suggestion: Consider calling method AsObservable to prevent casting return type back to the declaring type, AsObservable hides the identity of an observable sequence.
+(0): ReSharper Suggestion: Consider calling method 'AsObservable' to prevent casting return type back to the declaring type, 'AsObservable' hides the identity of an observable sequence.

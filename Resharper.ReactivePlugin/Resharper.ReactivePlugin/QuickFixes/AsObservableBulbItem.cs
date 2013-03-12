@@ -1,15 +1,15 @@
 ﻿namespace Resharper.ReactivePlugin.QuickFixes
 {
-    using System.Diagnostics;
     using System.Linq;
     using JetBrains.Application;
     using JetBrains.Application.Progress;
     using JetBrains.DocumentManagers;
     using JetBrains.ProjectModel;
     using JetBrains.ReSharper.Intentions.Extensibility;
-    using JetBrains.ReSharper.Psi;
     using JetBrains.ReSharper.Psi.CSharp;
     using JetBrains.ReSharper.Psi.CSharp.CodeStyle;
+    using JetBrains.ReSharper.Psi.CSharp.Impl;
+    using JetBrains.ReSharper.Psi.CSharp.Tree;
     using JetBrains.ReSharper.Psi.ExtensionsAPI.Tree;
     using JetBrains.ReSharper.Psi.Tree;
     using JetBrains.TextControl;
@@ -37,19 +37,25 @@
                 return;
             }
 
-            var containingFile = _literalExpression.GetContainingFile();
-            var elementFactory = CSharpElementFactory.GetInstance(_literalExpression.GetPsiModule());
+            var psiModule = _literalExpression.GetPsiModule();
             var psiManager = _literalExpression.GetPsiServices().PsiManager;
-            var moduleManager = _literalExpression.GetPsiServices().ModuleManager;
-            
-           IExpression newExpression = null;
+
+            var containingFile = _literalExpression.GetContainingFile();
+            var csharpFile = containingFile as ICSharpFile;
+
+            var elementFactory = CSharpElementFactory.GetInstance(psiModule);
+
+            IExpression newExpression = null;
             psiManager.DoTransaction(
                 () =>
                     {
                         using (solution.GetComponent<IShellLocks>().UsingWriteLock())
                         {
-                            var replacementExpression = elementFactory.CreateExpression(_literalExpression.GetText() + ".AsObservable()");
+                            var replacementExpression =
+                                elementFactory.CreateExpression(_literalExpression.GetText() + ".AsObservable()");
                             newExpression = ModificationUtil.ReplaceChild(_literalExpression, replacementExpression);
+
+                            EnsureNamespaceExists(csharpFile, elementFactory);
                         }
                     }, GetType().Name);
 
@@ -57,6 +63,19 @@
             {
                 var marker = newExpression.GetDocumentRange().CreateRangeMarker(solution.GetComponent<DocumentManager>());
                 containingFile.OptimizeImportsAndRefs(marker, false, true, NullProgressIndicator.Instance);
+            }
+        }
+
+        private static void EnsureNamespaceExists(ICSharpFile file, CSharpElementFactory factory)
+        {
+            var namespaceExists =
+                file.NamespaceDeclarationNodes.Any(
+                    n => n.Imports.Any(d => d.ImportedSymbolName.QualifiedName == AsObservableNamespace));
+
+            if (!namespaceExists)
+            {
+                var directive = factory.CreateUsingDirective(AsObservableNamespace);
+                UsingUtil.AddImportTo(file.NamespaceDeclarationNodes.First(), directive);
             }
         }
     }

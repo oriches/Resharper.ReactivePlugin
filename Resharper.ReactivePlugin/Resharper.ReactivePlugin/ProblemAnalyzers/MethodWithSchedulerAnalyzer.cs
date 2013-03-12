@@ -57,7 +57,7 @@
             }
         }
 
-        private void CreateHighlightAndAddToConsumer(IMethod method, IInvocationExpression expression, IHighlightingConsumer consumer)
+        private static void CreateHighlightAndAddToConsumer(IMethod method, IInvocationExpression expression, IHighlightingConsumer consumer)
         {
             var methodName = method.ShortName;
             var invokedText = expression.InvokedExpression.GetText();
