@@ -1,6 +1,7 @@
 ﻿namespace Resharper.ReactivePlugin.ProblemAnalyzers
 {
     using System;
+    using System.Collections.Generic;
     using Helpers;
     using Highlighters;
     using JetBrains.DocumentModel;
@@ -8,6 +9,7 @@
     using JetBrains.ReSharper.Daemon.Stages;
     using JetBrains.ReSharper.Daemon.Stages.Dispatcher;
     using JetBrains.ReSharper.Psi;
+    using JetBrains.ReSharper.Psi.CSharp;
     using JetBrains.ReSharper.Psi.CSharp.Tree;
     using JetBrains.ReSharper.Psi.Tree;
     using JetBrains.Util;
@@ -18,64 +20,81 @@
         private const string MergeMethodName = "Merge";
         private const string SelectMethodName = "Select";
 
-        private static readonly CurrentAndPreviousState<Tuple<IInvocationExpression, IMethod>> _state = new CurrentAndPreviousState<Tuple<IInvocationExpression, IMethod>>();
-
         protected override void Run(IInvocationExpression expression, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
         {
-            _state.InitialiseForFile(expression.GetSourceFile());
+            IPsiSourceFile sourceFile = expression.GetSourceFile();
+            if (sourceFile == null)
+            {
+                // What not source file!
+                return;
+            }
 
-            IMethod newMethod;
-            if (!MethodHelper.IsMethod(expression, out newMethod))
+            var psiFile = sourceFile.GetNonInjectedPsiFile<CSharpLanguage>();
+            if (psiFile == null)
+            {
+                // It's not a CSharp file...
+                return;
+            }
+
+            var expressions = new List<IInvocationExpression>();
+            psiFile.ProcessChildren<IInvocationExpression>(expressions.Add);
+
+            var index = expressions.FindIndex(c => c == expression);
+            var previousIndex = index + 1;
+
+            if (previousIndex > (expressions.Count - 1))
+            {
+                // There isn't a previous invocation expression...
+                return;
+            }
+
+            var previousExpression = expressions[previousIndex];
+            
+            IMethod currentMethod;
+            if (!MethodHelper.IsMethod(expression, out currentMethod))
             {
                 // Isn't a method so continue...
-                _state.SetCurrent(null);
-
                 return;
             }
 
-            _state.SetCurrent(new Tuple<IInvocationExpression, IMethod>(expression, newMethod));
-
-            // Is the current method and next method in the expression
-            // suitale to cleaned up into a SelectMany...
-            if (_state.Current == null || _state.Previous == null)
+            IMethod previousMethod;
+            if (!MethodHelper.IsMethod(previousExpression, out previousMethod))
             {
-                // Neither the current or next expression are methods...
+                // Isn't a method so continue...
                 return;
             }
 
-            if (!MethodHelper.IsReturnTypeIObservable(_state.Current.Item2) ||
-                !MethodHelper.IsReturnTypeIObservable(_state.Previous.Item2))
+            if (!MethodHelper.IsReturnTypeIObservable(currentMethod) ||
+                !MethodHelper.IsReturnTypeIObservable(previousMethod))
             {
                 // They both need to be reactive methods returning IObservable<T>...
-                _state.SetCurrent(null);
-
                 return;
             }
 
-            if (!MethodHelper.IsFromReactiveObservableClass(_state.Current.Item2) ||
-                !MethodHelper.IsFromReactiveObservableClass(_state.Previous.Item2))
+            if (!MethodHelper.IsFromReactiveObservableClass(currentMethod) ||
+                !MethodHelper.IsFromReactiveObservableClass(previousMethod))
             {
                 // They aren't both method from the reactive assemblies...
                 return;
             }
 
-            if (_state.Previous.Item2.ShortName != SelectMethodName ||
-                _state.Current.Item2.ShortName != MergeMethodName)
+            if (previousMethod.ShortName != SelectMethodName ||
+                currentMethod.ShortName != MergeMethodName)
             {
                 // The current method is not 'Select' or the next method is not 'Merge'...
                 return;
             }
 
-            var firstChild = _state.Previous.Item1.FirstChild;
+            var firstChild = previousExpression.FirstChild;
             if (firstChild == null)
             {
                 return;
             }
 
-            var previousRange = _state.Previous.Item1.GetDocumentRange();
-            var currentRange = _state.Current.Item1.GetDocumentRange();
+            var previousRange = previousExpression.GetDocumentRange();
+            var currentRange = expression.GetDocumentRange();
 
-            var previousLastIndex = GetExpressionMethodIndex(_state.Previous.Item1, _state.Previous.Item2);
+            var previousLastIndex = GetExpressionMethodIndex(previousExpression, previousMethod);
 
             var textRange = new TextRange(previousRange.TextRange.StartOffset + previousLastIndex, currentRange.TextRange.EndOffset);
             var range = new DocumentRange(expression.GetDocumentRange().Document, textRange);
@@ -85,8 +104,6 @@
             var info = new HighlightingInfo(range, highlighting, new Severity?());
 
             consumer.AddHighlighting(info.Highlighting, range, file);
-
-            _state.Reset();
         }
 
         private static int GetExpressionMethodIndex(IInvocationExpression expression, IMethod method)

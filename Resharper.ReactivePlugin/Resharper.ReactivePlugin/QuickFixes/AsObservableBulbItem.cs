@@ -75,7 +75,16 @@
             if (!namespaceExists)
             {
                 var directive = factory.CreateUsingDirective(AsObservableNamespace);
-                UsingUtil.AddImportTo(file.NamespaceDeclarationNodes.First(), directive);
+
+                var namespaceNode = file.NamespaceDeclarationNodes.FirstOrDefault();
+                if (namespaceNode != null)
+                {
+                    UsingUtil.AddImportTo(namespaceNode, directive);
+                }
+                else
+                {
+                    UsingUtil.AddImportTo(file, directive);
+                }
             }
         }
     }

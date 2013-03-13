@@ -52,13 +52,16 @@
     <Compile Include="Helpers\PropertyHelper.cs" />
     <Compile Include="Helpers\ReturnStatementHelper.cs" />
     <Compile Include="Helpers\TypeHelper.cs" />
+    <Compile Include="Highlighters\SelectAndMergeHighlighting.cs" />
     <Compile Include="Highlighters\UndefinedSchedulerHighlighting.cs" />
     <Compile Include="ProblemAnalyzers\AutoPropertyAsObservableChecker.cs" />
+    <Compile Include="ProblemAnalyzers\CurrentAndPreviousState.cs" />
     <Compile Include="ProblemAnalyzers\ReturnTypeAsObservableChecker.cs" />
     <Compile Include="Highlighters\AsObservableHighlighting.cs" />
     <Compile Include="Helpers\ConstructorHelper.cs" />
     <Compile Include="Helpers\MethodHelper.cs" />
     <Compile Include="Helpers\SchedulerHelper.cs" />
+    <Compile Include="ProblemAnalyzers\SelectAndMergeAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AboutAction.cs" />
     <Compile Include="ProblemAnalyzers\ConstructorWithSchedulerAnalyzer.cs" />
