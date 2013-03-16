@@ -1,5 +1,7 @@
 ﻿namespace Resharper.ReactivePlugin.ProblemAnalyzers
 {
+    using System;
+    using System.Diagnostics;
     using Helpers;
     using Highlighters;
     using JetBrains.DocumentModel;
@@ -16,44 +18,51 @@
     {
         protected override void Run(IInvocationExpression expression, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
         {
-            IMethod method;
-            if (!MethodHelper.IsMethod(expression, out method))
-            { 
-                // Only interested in methods...
-                return;
-            }
-
-            if (!MethodHelper.IsReturnTypeIObservable(method))
+            try
             {
-                // Only interested in methods returning IObservable<T>...
-                return;
-            }
-
-            IParameter schedulerParameter;
-            if (SchedulerHelper.HasSchedulerParameter(method, expression.ArgumentList, out schedulerParameter))
-            {
-                // If it's optional is it not null...
-                if (schedulerParameter.IsOptional)
-                {
-                    if (!System.Linq.Enumerable.Any(expression.ArgumentList.Arguments,
-                                                    a => TypeHelper.HasISchedulerSuperType(a.Value.Type())))
-                    {
-                        // Scheduler parameter is not defined (null)...
-                        CreateHighlightAndAddToConsumer(method, expression, consumer);
-                    }
-                }
-            }
-            else
-            {
-                if (!SchedulerHelper.HasOverloadWithSchedulerParameter(method, expression))
-                {
-                    // Can't find an overload with the scheduler parameter...
+                IMethod method;
+                if (!MethodHelper.IsMethod(expression, out method))
+                { 
+                    // Only interested in methods...
                     return;
                 }
 
-                // Overloaded version taking IScheduler as a parameter does exist
-                // You could be using this overload so we create a highlight...
-                CreateHighlightAndAddToConsumer(method, expression, consumer);
+                if (!MethodHelper.IsReturnTypeIObservable(method))
+                {
+                    // Only interested in methods returning IObservable<T>...
+                    return;
+                }
+
+                IParameter schedulerParameter;
+                if (SchedulerHelper.HasSchedulerParameter(method, expression.ArgumentList, out schedulerParameter))
+                {
+                    // If it's optional is it not null...
+                    if (schedulerParameter.IsOptional)
+                    {
+                        if (!System.Linq.Enumerable.Any(expression.ArgumentList.Arguments,
+                                                        a => TypeHelper.HasISchedulerSuperType(a.Value.Type())))
+                        {
+                            // Scheduler parameter is not defined (null)...
+                            CreateHighlightAndAddToConsumer(method, expression, consumer);
+                        }
+                    }
+                }
+                else
+                {
+                    if (!SchedulerHelper.HasOverloadWithSchedulerParameter(method, expression))
+                    {
+                        // Can't find an overload with the scheduler parameter...
+                        return;
+                    }
+
+                    // Overloaded version taking IScheduler as a parameter does exist
+                    // You could be using this overload so we create a highlight...
+                    CreateHighlightAndAddToConsumer(method, expression, consumer);
+                }
+            }
+            catch (Exception exn)
+            {
+                Debug.WriteLine("Failed MethodWithSchedulerAnalyzer, exception message - '{0}'", exn.Message);
             }
         }
 
@@ -64,7 +73,7 @@
 
             var range = expression.GetDocumentRange();
             
-            var lastIndex = invokedText.LastIndexOf(methodName, System.StringComparison.Ordinal);
+            var lastIndex = invokedText.LastIndexOf(methodName, StringComparison.Ordinal);
             if (lastIndex != 0)
             {
                 var textRange = new TextRange(range.TextRange.StartOffset + lastIndex, range.TextRange.EndOffset);

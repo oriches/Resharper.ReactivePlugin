@@ -1,5 +1,7 @@
 ﻿namespace Resharper.ReactivePlugin.ProblemAnalyzers
 {
+    using System;
+    using System.Diagnostics;
     using Highlighters;
     using JetBrains.DocumentModel;
     using JetBrains.ReSharper.Daemon;
@@ -16,43 +18,50 @@
     {
         protected override void Run(IObjectCreationExpression expression, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
         {
-            IConstructor constructor;
-            if (!ConstructorHelper.IsContructor(expression, out constructor))
+            try
             {
-                // Only interested in constructors...
-                return;
-            }
+                IConstructor constructor;
+                if (!ConstructorHelper.IsContructor(expression, out constructor))
+                {
+                    // Only interested in constructors...
+                    return;
+                }
 
-            if (SchedulerHelper.HasSchedulerParameter(constructor))
+                if (SchedulerHelper.HasSchedulerParameter(constructor))
+                {
+                    // Scheduler has been defined nothing to check...
+                    return;
+                }
+
+                if (!SchedulerHelper.HasOverloadWithSchedulerParameter(constructor))
+                {
+                    return;
+                }
+
+                // Overloaded version taking IScheduler as a parameter does exist
+                // You should be using this overload so we create a highlight...
+
+                var constructorName = expression.TypeName.QualifiedName;
+                var text = expression.GetText();
+
+                var range = expression.GetDocumentRange();
+                var index = text.IndexOf(constructorName, System.StringComparison.Ordinal);
+                if (index != -1)
+                {
+                    var textRange = new TextRange(range.TextRange.StartOffset + index, range.TextRange.EndOffset);
+                    range = new DocumentRange(expression.GetDocumentRange().Document, textRange);
+                }
+
+                var file = expression.GetContainingFile();
+                var highlighting = new UndefinedSchedulerHighlighting(expression);
+                var info = new HighlightingInfo(range, highlighting, new Severity?());
+
+                consumer.AddHighlighting(info.Highlighting, range, file);
+            }
+            catch (Exception exn)
             {
-                // Scheduler has been defined nothing to check...
-                return;
+                Debug.WriteLine("Failed ConstructorWithSchedulerAnalyzer, exception message - '{0}'", exn.Message);
             }
-
-            if (!SchedulerHelper.HasOverloadWithSchedulerParameter(constructor))
-            {
-                return;
-            }
-
-            // Overloaded version taking IScheduler as a parameter does exist
-            // You should be using this overload so we create a highlight...
-
-            var constructorName = expression.TypeName.QualifiedName;
-            var text = expression.GetText();
-
-            var range = expression.GetDocumentRange();
-            var index = text.IndexOf(constructorName, System.StringComparison.Ordinal);
-            if (index != -1)
-            {
-                var textRange = new TextRange(range.TextRange.StartOffset + index, range.TextRange.EndOffset);
-                range = new DocumentRange(expression.GetDocumentRange().Document, textRange);
-            }
-
-            var file = expression.GetContainingFile();
-            var highlighting = new UndefinedSchedulerHighlighting(expression);
-            var info = new HighlightingInfo(range, highlighting, new Severity?());
-
-            consumer.AddHighlighting(info.Highlighting, range, file);
         }
     }
 }

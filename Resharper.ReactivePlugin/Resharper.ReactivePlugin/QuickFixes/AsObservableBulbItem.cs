@@ -1,5 +1,7 @@
 ﻿namespace Resharper.ReactivePlugin.QuickFixes
 {
+    using System;
+    using System.Diagnostics;
     using System.Linq;
     using JetBrains.Application;
     using JetBrains.Application.Progress;
@@ -32,37 +34,44 @@
 
         public void Execute(ISolution solution, ITextControl textControl)
         {
-            if (!_literalExpression.IsValid())
+            try
             {
-                return;
-            }
+                if (!_literalExpression.IsValid())
+                {
+                    return;
+                }
 
-            var psiModule = _literalExpression.GetPsiModule();
-            var psiManager = _literalExpression.GetPsiServices().PsiManager;
+                var psiModule = _literalExpression.GetPsiModule();
+                var psiManager = _literalExpression.GetPsiServices().PsiManager;
 
-            var containingFile = _literalExpression.GetContainingFile();
-            var csharpFile = containingFile as ICSharpFile;
+                var containingFile = _literalExpression.GetContainingFile();
+                var csharpFile = containingFile as ICSharpFile;
 
-            var elementFactory = CSharpElementFactory.GetInstance(psiModule);
+                var elementFactory = CSharpElementFactory.GetInstance(psiModule);
 
-            IExpression newExpression = null;
-            psiManager.DoTransaction(
-                () =>
-                    {
-                        using (solution.GetComponent<IShellLocks>().UsingWriteLock())
+                IExpression newExpression = null;
+                psiManager.DoTransaction(
+                    () =>
                         {
-                            var replacementExpression =
-                                elementFactory.CreateExpression(_literalExpression.GetText() + ".AsObservable()");
-                            newExpression = ModificationUtil.ReplaceChild(_literalExpression, replacementExpression);
+                            using (solution.GetComponent<IShellLocks>().UsingWriteLock())
+                            {
+                                var replacementExpression =
+                                    elementFactory.CreateExpression(_literalExpression.GetText() + ".AsObservable()");
+                                newExpression = ModificationUtil.ReplaceChild(_literalExpression, replacementExpression);
 
-                            EnsureNamespaceExists(csharpFile, elementFactory);
-                        }
-                    }, GetType().Name);
+                                EnsureNamespaceExists(csharpFile, elementFactory);
+                            }
+                        }, GetType().Name);
 
-            if (newExpression != null)
+                if (newExpression != null)
+                {
+                    var marker = newExpression.GetDocumentRange().CreateRangeMarker(solution.GetComponent<DocumentManager>());
+                    containingFile.OptimizeImportsAndRefs(marker, false, true, NullProgressIndicator.Instance);
+                }
+            }
+            catch (Exception exn)
             {
-                var marker = newExpression.GetDocumentRange().CreateRangeMarker(solution.GetComponent<DocumentManager>());
-                containingFile.OptimizeImportsAndRefs(marker, false, true, NullProgressIndicator.Instance);
+                Debug.WriteLine("Failed AsObservableBulbItem, exception message - '{0}'", exn.Message);
             }
         }
 
