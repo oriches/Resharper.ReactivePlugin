@@ -19,4 +19,4 @@ namespace Resharper.ReactivePlugin.Tests.test.data.as_observable_quick_fix
 ------------------------------------------------
 0: Consider calling method 'AsObservable' to prevent casting return type back to the declaring type, 'AsObservable' hides the identity of an observable sequence.
 QUICKFIXES:
-Add 'AsObservable()' to return parameter
+Add method 'AsObservable' to return parameter

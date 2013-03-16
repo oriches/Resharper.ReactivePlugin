@@ -67,6 +67,8 @@
     <Compile Include="ProblemAnalyzers\MethodWithSchedulerAnalyzer.cs" />
     <Compile Include="Highlighters\SchedulerHighlighting.cs" />
     <Compile Include="QuickFixes\AsObservableQuickFix.cs" />
+    <Compile Include="QuickFixes\SelectAndMergeBulbItem.cs" />
+    <Compile Include="QuickFixes\SelectAndMergeQuickFix.cs" />
     <Compile Include="QuickFixes\AsObservableBulbItem.cs" />
   </ItemGroup>
   <ItemGroup>

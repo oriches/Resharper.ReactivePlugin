@@ -1,24 +1,21 @@
-namespace Resharper.ReactivePlugin.Tests.test.data.select_and_merge
+namespace Resharper.ReactivePlugin.Tests.test.data.select_and_merge_quick_fix
 {
     using System;
     using System.Collections.Generic;
     using System.Reactive.Linq;
     using Microsoft.Reactive.Testing;
 
-    public class File03
+    public class Availability01
     {
         private readonly TestScheduler _testScheduler = new TestScheduler();
 
         public IObservable<int> Method()
         {
-            return new List<int> {1, 2, 3}
+            return new List<int> { 1, 2, 3 }
                 .ToObservable(_testScheduler)
                 .Timeout(TimeSpan.FromSeconds(10), _testScheduler)
-                .|Select(GenerateNumbers)
-                .Merge(42)|(0)
-                .Merge(GenerateNumbers(2), _testScheduler)
-                .Merge(GenerateNumbers(2), _testScheduler);
-
+                .Select(GenerateNumbers)
+                .Merge();
         }
 
         private IObservable<int> GenerateNumbers(int number)
@@ -33,6 +30,3 @@ namespace Resharper.ReactivePlugin.Tests.test.data.select_and_merge
         }
     }
 }
-
----------------------------------------------------------
-(0): ReSharper Suggestion: Consider combining the methods 'Select' & 'Merge' into to the single method 'SelectMany'.

@@ -32,4 +32,4 @@ namespace Resharper.ReactivePlugin.Tests.test.data.select_and_merge
 }
 
 ---------------------------------------------------------
-(0): ReSharper Suggestion: Consider combining the calls to 'Select' & 'Merge' into a single call to 'SelectMany'.
+(0): ReSharper Suggestion: Consider combining the methods 'Select' & 'Merge' into to the single method 'SelectMany'.

@@ -8,11 +8,11 @@ namespace Resharper.ReactivePlugin.QuickFixes
     using JetBrains.Util;
 
     [QuickFix]
-    public sealed class AsObservableQuickFix : IQuickFix
+    public sealed class SelectAndMergeQuickFix : IQuickFix
     {
-        private readonly AsObservableHighlighting _highlighting;
+        private readonly SelectAndMergeHighlighting _highlighting;
 
-        public AsObservableQuickFix(AsObservableHighlighting highlighting)
+        public SelectAndMergeQuickFix(SelectAndMergeHighlighting highlighting)
         {
             _highlighting = highlighting;
         }
@@ -24,7 +24,7 @@ namespace Resharper.ReactivePlugin.QuickFixes
 
         public void CreateBulbItems(BulbMenu menu, Severity severity)
         {
-            menu.ArrangeQuickFix(new AsObservableBulbItem(_highlighting.Expression), severity);
+            menu.ArrangeQuickFix(new SelectAndMergeBulbItem(_highlighting.Expression), severity);
         }
     }
 }

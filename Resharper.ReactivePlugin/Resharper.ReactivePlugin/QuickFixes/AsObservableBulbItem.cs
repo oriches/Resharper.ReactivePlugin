@@ -29,7 +29,7 @@
 
         public string Text
         {
-            get { return string.Format("Add 'AsObservable()' to return parameter"); }
+            get { return string.Format("Add method 'AsObservable' to return parameter"); }
         }
 
         public void Execute(ISolution solution, ITextControl textControl)

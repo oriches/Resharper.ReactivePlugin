@@ -22,7 +22,7 @@ namespace Resharper.ReactivePlugin.Highlighters
     {
         public const string SeverityId = "ReactiveSelectAndMergeChecker";
 
-        private const string ToolTipInfo = "Consider combining the calls to 'Select' & 'Merge' into a single call to 'SelectMany'.";
+        private const string ToolTipInfo = "Consider combining the methods 'Select' & 'Merge' into to the single method 'SelectMany'.";
 
         private readonly IExpression _expression;
 
