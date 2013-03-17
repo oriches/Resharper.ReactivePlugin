@@ -5,9 +5,6 @@
 
     public static class TypeHelper
     {
-        private const string ObservableInterfaceName = "System.IObservable`1";
-        private const string SchedulerInterfaceName = "System.Reactive.Concurrency.IScheduler";
-
         public static bool IsIObservableType(IType type)
         {
             var scalarType = type.GetScalarType();
@@ -16,7 +13,7 @@
                 return false;
             }
 
-            return scalarType.GetClrName().FullName == ObservableInterfaceName;
+            return scalarType.GetClrName().FullName == Constants.ObservableInterfaceName;
         }
 
         public static bool HasIObservableSuperType(IType type)
@@ -27,7 +24,7 @@
                 return false;
             }
 
-            return scalarType.GetClrName().FullName == ObservableInterfaceName ||
+            return scalarType.GetClrName().FullName == Constants.ObservableInterfaceName ||
                    scalarType.GetSuperTypes().Any(HasIObservableSuperType);
         }
 
@@ -39,7 +36,7 @@
                 return false;
             }
 
-            return scalarType.GetClrName().FullName == SchedulerInterfaceName ||
+            return scalarType.GetClrName().FullName == Constants.SchedulerInterfaceName ||
                    scalarType.GetSuperTypes().Any(HasISchedulerSuperType);
         }
     }

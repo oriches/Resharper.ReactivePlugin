@@ -20,7 +20,7 @@ namespace Resharper.ReactivePlugin.Highlighters
     [ConfigurableSeverityHighlighting(SeverityId, CSharpLanguage.Name, OverlapResolve = OverlapResolveKind.WARNING)]
     public sealed class SelectAndMergeHighlighting : IHighlightingWithRange
     {
-        public const string SeverityId = "ReactiveSelectAndMergeChecker";
+        public const string SeverityId = "ReactiveSelectAndMergeAnalyzer";
 
         private const string ToolTipInfo = "Consider combining the methods 'Select' & 'Merge' into to the single method 'SelectMany'.";
 

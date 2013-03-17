@@ -8,8 +8,6 @@
 
     public static class ConstructorHelper
     {
-        private const string ObservableInterfaceName = "System.IObservable`1";
-
         public static bool IsContructor(IObjectCreationExpression creationExpression, out IConstructor constructor)
         {
             constructor = null;
@@ -56,7 +54,7 @@
 
                 return typeElement.GetSuperTypes()
                     .Select(t => t.GetClrName().FullName)
-                    .Any(n => n == ObservableInterfaceName);
+                    .Any(n => n == Constants.ObservableInterfaceName);
             }
             catch (Exception exn)
             {

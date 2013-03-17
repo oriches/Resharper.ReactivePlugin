@@ -6,7 +6,7 @@
     {
         private void Main()
         {
-            var custom = new |Custom()|(0);
+            var custom = new |Cus|(0)tom();
         }
     }
 }

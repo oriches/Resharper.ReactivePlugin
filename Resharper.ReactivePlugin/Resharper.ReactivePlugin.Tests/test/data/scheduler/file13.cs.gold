@@ -9,7 +9,7 @@
         private void Main()
         {
             var tmp = Observable.Return(42, Scheduler.Immediate);
-            tmp.|OneMinuteDelay()|(0);
+            tmp.|One|(0)MinuteDelay();
         }
     }
 }

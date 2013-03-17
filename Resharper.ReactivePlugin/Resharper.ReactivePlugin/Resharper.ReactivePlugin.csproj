@@ -55,6 +55,7 @@
     <Compile Include="Highlighters\SelectAndMergeHighlighting.cs" />
     <Compile Include="Highlighters\UndefinedSchedulerHighlighting.cs" />
     <Compile Include="ProblemAnalyzers\AutoPropertyAsObservableAnalyzer.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="ProblemAnalyzers\ReturnTypeAsObservableAnalyzer.cs" />
     <Compile Include="Highlighters\AsObservableHighlighting.cs" />
     <Compile Include="Helpers\ConstructorHelper.cs" />

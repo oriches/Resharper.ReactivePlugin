@@ -7,7 +7,7 @@ namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
     {
         public static void Main()
         {
-            Observable.|Return(42)|(0).|Delay(TimeSpan.FromSeconds(1))|(1).Select(n => n);
+            Observable.|Ret|(0)urn(42).|Del|(1)ay(TimeSpan.FromSeconds(1)).Select(n => n);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
         public static void Main()
         {
             // ReSharper disable InvokeAsExtensionMethod
-            Observable.|Merge(Observable.Return(42, NewThreadScheduler.Default), Observable.Return(42, NewThreadScheduler.Default))|(0);
+            Observable.|Mer|(0)ge(Observable.Return(42, NewThreadScheduler.Default), Observable.Return(42, NewThreadScheduler.Default));
             // ReSharper restore InvokeAsExtensionMethod
         }
     }

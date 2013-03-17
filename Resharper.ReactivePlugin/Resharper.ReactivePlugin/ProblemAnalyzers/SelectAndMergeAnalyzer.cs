@@ -18,9 +18,6 @@
     [ElementProblemAnalyzer(new[] { typeof(IInvocationExpression) }, HighlightingTypes = new[] { typeof(SelectAndMergeHighlighting) })]
     public sealed class SelectAndMergeAnalyzer : ElementProblemAnalyzer<IInvocationExpression>
     {
-        private const string MergeMethodName = "Merge";
-        private const string SelectMethodName = "Select";
-
         protected override void Run(IInvocationExpression expression, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
         {
             try
@@ -81,8 +78,8 @@
                     return;
                 }
 
-                if (previousMethod.ShortName != SelectMethodName ||
-                    currentMethod.ShortName != MergeMethodName)
+                if (previousMethod.ShortName != Constants.SelectMethodName ||
+                    currentMethod.ShortName != Constants.MergeMethodName)
                 {
                     // The current method is not 'Select' or the next method is not 'Merge'...
                     return;
@@ -95,12 +92,24 @@
                 }
 
                 var previousRange = previousExpression.GetDocumentRange();
-                var currentRange = expression.GetDocumentRange();
 
-                var previousLastIndex = GetExpressionMethodIndex(previousExpression, previousMethod);
+                var invokedText = expression.InvokedExpression.GetText();
+                var previousLastIndex = invokedText.LastIndexOf(previousMethod.ShortName, StringComparison.Ordinal);
 
-                var textRange = new TextRange(previousRange.TextRange.StartOffset + previousLastIndex,
-                                              currentRange.TextRange.EndOffset);
+                var startIndex = previousRange.TextRange.StartOffset + previousLastIndex;
+                int endIndex;
+
+                if ((invokedText.Length + Constants.NewOperator.Length) > Constants.HighlightLength)
+                {
+                    startIndex = previousRange.TextRange.StartOffset + previousLastIndex;
+                    endIndex = startIndex + Constants.HighlightLength;
+                }
+                else
+                {
+                    endIndex = startIndex + previousRange.TextRange.EndOffset;
+                }
+
+                var textRange = new TextRange(startIndex, endIndex);
                 var range = new DocumentRange(expression.GetDocumentRange().Document, textRange);
 
                 var file = expression.GetContainingFile();
@@ -115,7 +124,7 @@
             }
         }
 
-        private static int GetExpressionMethodIndex(IInvocationExpression expression, IMethod method)
+        private static int GetExpressionMethodIndexw(IInvocationExpression expression, IMethod method)
         {
             var invokedText = expression.InvokedExpression.GetText();
             var lastIndex = invokedText.LastIndexOf(method.ShortName, StringComparison.Ordinal);

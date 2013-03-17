@@ -20,7 +20,7 @@ namespace Resharper.ReactivePlugin.Highlighters
     [ConfigurableSeverityHighlighting(SeverityId, CSharpLanguage.Name, OverlapResolve = OverlapResolveKind.WARNING)]
     public sealed class AsObservableHighlighting : IHighlightingWithRange
     {
-        public const string SeverityId = "ReactiveAsObservableChecker";
+        public const string SeverityId = "ReactiveAsObservableAnalyzer";
 
         private const string ToolTipInfo = "Consider calling method 'AsObservable' to prevent casting return type back to the declaring type, 'AsObservable' hides the identity of an observable sequence.";
 

@@ -10,7 +10,7 @@ namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
             var return1 = Observable.Return(42, NewThreadScheduler.Default);
             var return2 = Observable.Return(42, NewThreadScheduler.Default);
 
-            return1.|Merge(return2)|(0);
+            return1.|Mer|(0)ge(return2);
         }
     }
 }

@@ -9,10 +9,6 @@
 
     public static class ReturnStatementHelper
     {
-        private const string AsObservableName = "AsObservable";
-        private const string ObservableInterfaceName = "System.IObservable`1";
-        private const string ObjectName = "System.Object";
-
         public static bool IsReturnTypeAsObservable(IReturnStatement returnStatement)
         {
             try
@@ -36,7 +32,7 @@
                     return false;
                 }
 
-                return declaredElement.ShortName == AsObservableName;
+                return declaredElement.ShortName == Constants.AsObservableName;
             }
             catch (Exception exn)
             {
@@ -61,10 +57,10 @@
                     return false;
                 }
 
-                if (scalarType.GetClrName().FullName == ObservableInterfaceName)
+                if (scalarType.GetClrName().FullName == Constants.ObservableInterfaceName)
                 {
                     if (scalarType.GetSuperTypes().Count() == 1 &&
-                        scalarType.GetSuperTypes().First().GetClrName().FullName == ObjectName)
+                        scalarType.GetSuperTypes().First().GetClrName().FullName == Constants.ObjectName)
                     {
 
                         return true;
@@ -96,7 +92,7 @@
                     return false;
                 }
 
-                return scalarType.GetClrName().FullName == ObservableInterfaceName ||
+                return scalarType.GetClrName().FullName == Constants.ObservableInterfaceName ||
                        TypeHelper.HasIObservableSuperType(scalarType);
             }
             catch (Exception exn)
@@ -144,7 +140,7 @@
                     return false;
                 }
 
-                if (scalarType.GetClrName().FullName != ObservableInterfaceName)
+                if (scalarType.GetClrName().FullName != Constants.ObservableInterfaceName)
                 {
                     return false;
                 }

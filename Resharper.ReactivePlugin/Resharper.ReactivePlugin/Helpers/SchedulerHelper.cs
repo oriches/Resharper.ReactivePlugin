@@ -11,8 +11,6 @@
 
     public static class SchedulerHelper
     {
-        private const string SchedulerInterfaceName = "System.Reactive.Concurrency.IScheduler";
-
         public static bool HasSchedulerParameter<T>(T owner, IArgumentList argumentList, out IParameter schedulerParameter) where T : IParametersOwner
         {
             try
@@ -61,7 +59,7 @@
                 var hasOverload =
                     fitleredOverloads.Any(
                         po =>
-                        po.OverloadParameters.Except(po.OriginalParameters).First().TypeName == SchedulerInterfaceName);
+                        po.OverloadParameters.Except(po.OriginalParameters).First().TypeName == Constants.SchedulerInterfaceName);
 
                 return hasOverload;
             }
@@ -106,7 +104,7 @@
                 .SingleOrDefault(pt =>
                                      {
                                          var declaredType = pt.Type.GetScalarType();
-                                         return declaredType != null && declaredType.GetClrName().FullName == SchedulerInterfaceName;
+                                         return declaredType != null && declaredType.GetClrName().FullName == Constants.SchedulerInterfaceName;
                                      });
 
             return schedulerParameter != null; 

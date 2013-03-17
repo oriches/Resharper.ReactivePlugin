@@ -45,10 +45,23 @@
                 var text = expression.GetText();
 
                 var range = expression.GetDocumentRange();
-                var index = text.IndexOf(constructorName, System.StringComparison.Ordinal);
+                var index = text.IndexOf(constructorName, StringComparison.Ordinal);
                 if (index != -1)
                 {
-                    var textRange = new TextRange(range.TextRange.StartOffset + index, range.TextRange.EndOffset);
+                    var startIndex = range.TextRange.StartOffset + index;
+                    int endIndex;
+
+                    if ((text.Length + Constants.NewOperator.Length) > Constants.HighlightLength)
+                    {
+                        startIndex = range.TextRange.StartOffset + Constants.NewOperator.Length;
+                        endIndex = startIndex + Constants.HighlightLength;
+                    }
+                    else
+                    {
+                        endIndex = startIndex + range.TextRange.EndOffset;
+                    }
+
+                    var textRange = new TextRange(startIndex, endIndex);
                     range = new DocumentRange(expression.GetDocumentRange().Document, textRange);
                 }
 

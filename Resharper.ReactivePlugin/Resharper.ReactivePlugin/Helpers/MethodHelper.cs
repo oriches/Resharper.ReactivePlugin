@@ -8,9 +8,6 @@
 
     public static class MethodHelper
     {
-        private const string ReactiveLinqAssemblyFullName = "System.Reactive.Linq.Observable";
-        private const string ObservableInterfaceName = "System.IObservable`1";
-
         public static bool IsMethod(IExpression expression, out IMethod method)
         {
             method = null;
@@ -57,7 +54,7 @@
                     return false;
                 }
 
-                return declaredType.GetClrName().FullName == ObservableInterfaceName;
+                return declaredType.GetClrName().FullName == Constants.ObservableInterfaceName;
             }
             catch (Exception exn)
             {
@@ -76,7 +73,7 @@
                     return false;
                 }
 
-                return classType.GetClrName().FullName == ReactiveLinqAssemblyFullName;
+                return classType.GetClrName().FullName == Constants.ReactiveLinqAssemblyFullName;
             }
             catch (Exception exn)
             {

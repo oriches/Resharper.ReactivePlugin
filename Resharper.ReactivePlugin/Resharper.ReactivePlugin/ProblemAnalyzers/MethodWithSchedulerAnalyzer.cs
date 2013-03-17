@@ -76,7 +76,19 @@
             var lastIndex = invokedText.LastIndexOf(methodName, StringComparison.Ordinal);
             if (lastIndex != 0)
             {
-                var textRange = new TextRange(range.TextRange.StartOffset + lastIndex, range.TextRange.EndOffset);
+                var startIndex = range.TextRange.StartOffset + lastIndex;
+                int endIndex;
+
+                if (invokedText.Length > Constants.HighlightLength)
+                {
+                    endIndex = startIndex + Constants.HighlightLength;
+                }
+                else
+                {
+                    endIndex = startIndex + range.TextRange.EndOffset;
+                }
+
+                var textRange = new TextRange(startIndex, endIndex);
                 range = new DocumentRange(expression.GetDocumentRange().Document, textRange);
             }
 

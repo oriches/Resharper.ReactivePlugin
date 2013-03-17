@@ -10,7 +10,7 @@
 
         public IObservable<Unit> Method
         {
-            get { return |_test|(0); }
+            get { return |_te|(0)st; }
         }
     }
 }

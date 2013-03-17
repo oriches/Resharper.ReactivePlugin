@@ -20,7 +20,7 @@ namespace Resharper.ReactivePlugin.Highlighters
     [ConfigurableSeverityHighlighting(SeverityId, CSharpLanguage.Name, OverlapResolve = OverlapResolveKind.WARNING)]
     public abstract class SchedulerHighlighting : IHighlightingWithRange
     {
-        public const string SeverityId = "ReactiveSchedulerChecker";
+        public const string SeverityId = "ReactiveSchedulerAnalyzer";
 
         private readonly IExpression _expression;
 

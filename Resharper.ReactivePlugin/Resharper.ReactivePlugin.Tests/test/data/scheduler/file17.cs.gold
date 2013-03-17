@@ -9,7 +9,7 @@ namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
         public static void Main()
         {
             var custom = new Custom(Scheduler.Immediate);
-            custom.|ComplexMethod(GetComplexMethodParameter())|(0).Subscribe();
+            custom.|Com|(0)plexMethod(GetComplexMethodParameter()).Subscribe();
         }
 
         private static int GetComplexMethodParameter()

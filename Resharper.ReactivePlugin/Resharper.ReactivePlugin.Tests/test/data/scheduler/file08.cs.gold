@@ -10,7 +10,7 @@
         private IObservable<Unit> Main()
         {
             var custom = new Custom(Scheduler.Immediate);
-            return custom.|MethodWithOptionalScheduler()|(0);
+            return custom.|Met|(0)hodWithOptionalScheduler();
         }
     }
 }

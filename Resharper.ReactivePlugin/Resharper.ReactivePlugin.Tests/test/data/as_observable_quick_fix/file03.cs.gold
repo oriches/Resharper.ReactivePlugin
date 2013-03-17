@@ -12,7 +12,7 @@
 
         public IObservable<Unit> Method()
         {
-            return _test.AsObservable(){caret};
+            return _te{caret}st.AsObservable();
         }
     }
 }

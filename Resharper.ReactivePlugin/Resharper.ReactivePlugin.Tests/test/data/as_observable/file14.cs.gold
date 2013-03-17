@@ -8,7 +8,7 @@
     {
         public File14()
         {
-            AutoProperty = |new CustomObservable<Unit>()|(0);
+            AutoProperty = new |Cus|(0)tomObservable<Unit>();
         }
 
         public IObservable<Unit> AutoProperty { get; private set; }

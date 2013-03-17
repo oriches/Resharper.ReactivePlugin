@@ -14,8 +14,8 @@ namespace Resharper.ReactivePlugin.Tests.test.data.select_and_merge
             return new List<int> {1, 2, 3}
                 .ToObservable(_testScheduler)
                 .Timeout(TimeSpan.FromSeconds(10), _testScheduler)
-                .|Select(GenerateNumbers)
-                .Merge(42)|(0);
+                .|Sel|(0)ect(GenerateNumbers)
+                .Merge(42);
         }
 
         private IObservable<int> GenerateNumbers(int number)

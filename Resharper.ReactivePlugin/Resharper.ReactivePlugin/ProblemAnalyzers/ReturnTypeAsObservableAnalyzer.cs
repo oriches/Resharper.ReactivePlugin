@@ -2,13 +2,16 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Globalization;
     using Highlighters;
+    using JetBrains.DocumentModel;
     using JetBrains.ReSharper.Daemon;
     using JetBrains.ReSharper.Daemon.Stages;
     using JetBrains.ReSharper.Daemon.Stages.Dispatcher;
     using JetBrains.ReSharper.Psi.CSharp.Tree;
     using JetBrains.ReSharper.Psi.Tree;
     using Helpers;
+    using JetBrains.Util;
 
     [ElementProblemAnalyzer(new[] { typeof(IReturnStatement) }, HighlightingTypes = new[] { typeof(AsObservableHighlighting) })]
     public sealed class ReturnTypeAsObservableAnalyzer : ElementProblemAnalyzer<IReturnStatement>
@@ -51,6 +54,21 @@
 
                 var range = expression.GetDocumentRange();
                 var file = expression.GetContainingFile();
+
+                var length = range.TextRange.EndOffset - range.TextRange.StartOffset;
+                if (length > Constants.HighlightLength)
+                {
+                    var startIndex = range.TextRange.StartOffset;
+                    if (range.GetText().StartsWith(Constants.NewOperator, true, CultureInfo.InvariantCulture))
+                    {
+                        startIndex = range.TextRange.StartOffset + Constants.NewOperator.Length;
+                    }
+                    
+                    var endIndex = startIndex + Constants.HighlightLength;
+
+                    var textRange = new TextRange(startIndex, endIndex);
+                    range = new DocumentRange(expression.GetDocumentRange().Document, textRange);
+                }
 
                 var highlighting = new AsObservableHighlighting(expression);
                 var info = new HighlightingInfo(range, highlighting, new Severity?());

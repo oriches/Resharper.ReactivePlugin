@@ -14,7 +14,7 @@
         {
             get
             {
-                return _test.AsObservable(){caret};
+                return _te{caret}st.AsObservable();
             }
         }
     }

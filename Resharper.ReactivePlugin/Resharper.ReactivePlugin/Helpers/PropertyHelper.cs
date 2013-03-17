@@ -9,8 +9,6 @@
 
     public static class PropertyHelper
     {
-        private const string AsObservableName = "AsObservable";
-
         public static bool IsPropertyAssignment(IAssignmentExpression expression, out IProperty property)
         {
             property = null;
@@ -111,7 +109,7 @@
                     return false;
                 }
 
-                return declaredElement.ShortName == AsObservableName;
+                return declaredElement.ShortName == Constants.AsObservableName;
             }
             catch (Exception exn)
             {

@@ -9,7 +9,7 @@
     {
         public File13()
         {
-            AutoProperty = |new ReplaySubject<Unit>(42, Scheduler.Immediate)|(0);
+            AutoProperty = new |Rep|(0)laySubject<Unit>(42, Scheduler.Immediate);
         }
 
         public IObservable<Unit> AutoProperty { get; private set; }

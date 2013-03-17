@@ -8,7 +8,7 @@ namespace Resharper.ReactivePlugin.Tests.test.data.scheduler
     {
         public static void Main()
         {
-            Observable.Create<Unit>(o => Observable.Never<Unit>().|Delay(TimeSpan.FromSeconds(1))|(0).Subscribe(o));
+            Observable.Create<Unit>(o => Observable.Never<Unit>().|Del|(0)ay(TimeSpan.FromSeconds(1)).Subscribe(o));
         }
     }
 }

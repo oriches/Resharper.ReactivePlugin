@@ -12,7 +12,7 @@ namespace Resharper.ReactivePlugin.Tests.test.data.as_observable_quick_fix
 
         public IObservable<Unit> Method()
         {
-            return _test{caret};
+            return _te{caret}st;
         }
     }
 }

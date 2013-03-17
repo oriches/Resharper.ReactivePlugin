@@ -14,7 +14,7 @@ namespace Resharper.ReactivePlugin.Tests.test.data.as_observable_quick_fix
         {
             get
             {
-                return _test{caret};
+                return _te{caret}st;
             }
         }
     }
