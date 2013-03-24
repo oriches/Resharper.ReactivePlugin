@@ -77,6 +77,7 @@
     <Compile Include="Helpers\ReactiveCSharpContextActionExecuteTestBase.cs" />
     <Compile Include="Helpers\ReactiveCodeCleanupTestBase.cs" />
     <Compile Include="Helpers\ReactiveCSharpQuickFixTestBase.cs" />
+    <Compile Include="SelectAndMergeQuickFixTests.cs" />
     <Compile Include="test\data\select_and_merge_quick_fix\availability01.cs" />
     <Resource Include="test\data\select_and_merge_quick_fix\file01.cs" />
     <Resource Include="test\data\select_and_merge_quick_fix\file02.cs" />
