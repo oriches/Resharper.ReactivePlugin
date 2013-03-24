@@ -32,7 +32,7 @@ Note: Trying to define what 'better' means would be a subjective and rather futi
 
 **So what's currently supported?**
 
-Currently there are only 2 highlights defined  - this is a beta release after all :)
+Currently there are only 3 highlights and 2 quick fixes defined  - this is 'still' a beta release after all :)
 
 See the [Wiki] (https://github.com/oriches/Resharper.ReactivePlugin/wiki) page on the wiki for an index of supported highlights & actions.
 
