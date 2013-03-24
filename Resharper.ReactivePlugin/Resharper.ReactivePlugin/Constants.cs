@@ -13,6 +13,7 @@
         public const string AsObservableName = "AsObservable";
         public const string MergeMethodName = "Merge";
         public const string SelectMethodName = "Select";
+        public const string SelectManyMethodName = "SelectMany";
         public const string ObjectName = "System.Object";
 
         // Operators...
