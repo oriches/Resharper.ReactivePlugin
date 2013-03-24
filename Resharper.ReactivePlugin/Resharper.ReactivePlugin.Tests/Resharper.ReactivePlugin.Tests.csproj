@@ -78,7 +78,13 @@
     <Compile Include="Helpers\ReactiveCodeCleanupTestBase.cs" />
     <Compile Include="Helpers\ReactiveCSharpQuickFixTestBase.cs" />
     <Compile Include="test\data\select_and_merge_quick_fix\availability01.cs" />
+    <Resource Include="test\data\select_and_merge_quick_fix\file01.cs" />
+    <Resource Include="test\data\select_and_merge_quick_fix\file02.cs" />
+    <Resource Include="test\data\select_and_merge_quick_fix\file03.cs" />
     <None Include="test\data\select_and_merge_quick_fix\availability01.cs.gold" />
+    <None Include="test\data\select_and_merge_quick_fix\file01.cs.gold" />
+    <None Include="test\data\select_and_merge_quick_fix\file02.cs.gold" />
+    <None Include="test\data\select_and_merge_quick_fix\file03.cs.gold" />
     <Resource Include="test\data\as_observable_quick_fix\file03.cs" />
     <Compile Include="SelectAndMergeTests.cs" />
     <Compile Include="test\data\select_and_merge\file03.cs" />
